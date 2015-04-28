@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<title>Catalogo de Produtos</title>
+
+	<!--Include JQM and JQ-->
+	<link rel="stylesheet" href="css/themes/jqmfb.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.structure.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="js/jquery.animate-enhanced.min.js"></script>
+	
+	<!--JQM globals you can edit or remove file entirely... note it needs to be loaded before jquerymobile js -->
+	<script src="js/jqm.globals.js"></script>
+	
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+
+	<!--JQM SlideMenu-->
+	<link rel="stylesheet" href="css/jqm.slidemenu.css" />
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/jqm.slidemenu.js"></script>
+	
+	<script src="js/scripts.js"></script>
+</head>
+<body>
+
+	<div id="slidemenu">
+
+		<div id="profile">
+			<img src="img/miss-trendy.png">
+			<div class="profile_info"></div>
+		</div>
+
+		<h3>MENU</h3>
+
+		<ul>
+			<li><a href="#main"><img src="img/smico3.png">Home</a></li>
+			<li><a href="#tela1"><img src="img/smico5.png">Novidades!</a></li>
+			<li><a href="#tela2"><img src="img/smico4.png">Vestidos</a></li>
+			<li><a href="#tela3"><img src="img/smico4.png">Saias</a></li>
+			<li><a href="#tela4" rel="external"><img src="img/smico4.png">Blusas</a></li>
+			<li><a href="#tela5"><img src="img/smico4.png">Casacos</a></li>
+			<li><a href="#tela6"><img src="img/smico4.png">Cal&ccedil;as</a></li>
+			<li><a href="#tela7"><img src="img/smico4.png">Shorts</a></li>
+		</ul>
+
+		<h3>MISS TRENDY</h3>
+
+		<ul>
+			<li><a href="#noticias"><img src="img/smico3.png">Dicas</a></li>
+			<li><a href="#faleconosco" rel="external"><img src="img/smico5.png">Enviar Mensagem</a></li>
+		</ul>
+
+	</div>
+
+	<div data-role="page" id="main" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Miss Trendy!</h1>
+		</div>
+
+		<div data-role="main" id="main" class="ui-content">
+			<p><img src="img/miss-trendy.png"></p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p><img src="img/miss.jpg" width="300"></p>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela1" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Novidades</h1>
+		</div>
+
+		<div data-role="main" id="main_tela1" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela1">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela2" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Vestidos</h1>
+		</div>
+
+		<div data-role="main" id="main_tela2" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela2">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela3" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Saias</h1>
+		</div>
+
+		<div data-role="main" id="main_tela3" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela3">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela4" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Blusas</h1>
+		</div>
+
+		<div data-role="main" id="main_tela4" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela4">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela5" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Casacos</h1>
+		</div>
+
+		<div data-role="main" id="main_tela5" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela5">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela6" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Cal&ccedil;as</h1>
+		</div>
+
+		<div data-role="main" id="main_tela6" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela6">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela7" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Shorts</h1>
+		</div>
+
+		<div data-role="main" id="main_tela7" class="ui-content">
+			<img src="img/ajax-loader.gif">
+		</div>
+		<div data-role="footer">
+			<a data-ajax="false" data-role="button" href="#main_tela7">Voltar para o come&ccedil;o da lista</a>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="noticias" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Noticias</h1>
+		</div>
+
+		<div data-role="main" id="main" class="ui-content">
+			<div id="content_news" data-role="collapsibleset">
+			
+			</div>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="faleconosco" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Fale Conosco</h1>
+		</div>
+
+		<div data-role="main" id="main" class="ui-content">
+			 <p>Mande sua mensagem. Entraremos em contato em breve!</p>
+			  <form id="check-contato" data-ajax="false">
+			  <div class="ui-field-contain">
+				<label for="fullname">Seu nome:</label>
+				<input type="text" name="nome_contato" id="nome_contato">  <br/>     
+				<label for="email">E-mail:</label>
+				<input type="email" name="email_contato" id="email_contato" placeholder="Seu email.."><br/>
+				
+				<label for="info">Sua mensagem:</label>
+				<textarea name="mensagem_contato" id="mensagem_contato"></textarea><br/>
+			  </div>
+			  <input type="submit" data-inline="true" id="enviar_contato" value="Enviar">
+			</form>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela10" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Detalhes do Produto</h1>
+		</div>
+
+		<div data-role="main" id="main_tela10" class="ui-content">
+		
+		</div>
+		<div data-role="footer">
+			<a href="#" class="ui-btn" data-rel="back">Voltar para a lista de produtos</a>
+		</div>
+
+	</div>
+	
+	
+	<script type="text/javascript" src="phonegap.js"></script>
+</body>
+</html>
