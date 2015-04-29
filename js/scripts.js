@@ -53,35 +53,39 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 		 
 		function onDeviceReady() {
-			screen.unlockOrientation();
+			//screen.unlockOrientation();
 			//navigator.screenOrientation.set('fullSensor');
 			//document.addEventListener("orientationChanged", updateOrientation);
-			document.addEventListener("orientationchange", updateOrientation, true);
+			//document.addEventListener("orientationchange", updateOrientation, true);
 		
 			
 		}
-		function updateOrientation(e) {
+		
+		//function updateOrientation(e) {
 			
-			switch (e.orientation) {
-				case 90:
-					//navigator.screenOrientation.set('landscape');
-					screen.lockOrientation('landscape');
-					break;
-				case -90:
-					//navigator.screenOrientation.set('landscape');
-					screen.lockOrientation('landscape');
-					break;
-				case 180:
-					//navigator.screenOrientation.set('portrait');
-					screen.lockOrientation('portrait');
-					break;	
-				case 0:
-					//navigator.screenOrientation.set('portrait');
-					screen.lockOrientation('portrait');
-					break;	
-			}
-		}
-
+		//	switch (e.orientation) {
+		//		case 90:
+		//			//navigator.screenOrientation.set('landscape');
+		//			screen.lockOrientation('landscape');
+		//			break;
+		//		case -90:
+		//			//navigator.screenOrientation.set('landscape');
+		//			screen.lockOrientation('landscape');
+		//			break;
+		//		case 180:
+		//			//navigator.screenOrientation.set('portrait');
+		//			screen.lockOrientation('portrait');
+		//			break;	
+		//		case 0:
+		//			//navigator.screenOrientation.set('portrait');
+		//			screen.lockOrientation('portrait');
+		//			break;	
+		//	}
+		//}
+		
+		$("a").on("click", function (event) {
+		   codigo_produto = $(this).attr("data-parm");
+		});
 		
 		$(document).on('pageinit', '#noticias', function(){  
 			
@@ -213,7 +217,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -254,7 +258,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -295,7 +299,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -336,7 +340,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -377,7 +381,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -418,7 +422,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -459,7 +463,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a href="tela10.htm?codigo=' + codigo + '"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -482,9 +486,9 @@
 
 		
 		$(document).on('pageinit', '#tela10', function(){  
-			var parameters = $(this).data("url").split("?")[1];
-			parameter = parameters.replace("codigo=","");
-			codigo_produto = parameter;
+			//var parameters = $(this).data("url").split("?")[1];
+			//parameter = parameters.replace("codigo=","");
+			//codigo_produto = parameter;
 			//Produto Selecionado
 			$.ajax({
 				type: "GET",
