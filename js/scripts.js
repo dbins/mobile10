@@ -84,7 +84,7 @@
 		//}
 		
 		$("a").on("click", function (event) {
-		   codigo_produto = $(this).attr("data-parm");
+		   codigo_produto = $(this).data('parm');
 		});
 		
 		$(document).on('pageinit', '#noticias', function(){  
