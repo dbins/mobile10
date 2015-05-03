@@ -65,7 +65,9 @@
 			//document.addEventListener("orientationchange", updateOrientation, true);
 			$("a").on("click", function (event) {
 			   alert(codigo_produto);
-			   codigo_produto = $(this).data('parm');
+			  if(typeof $(this).data('parm') !== "undefined") {
+				codigo_produto = $(this).data('parm');
+			  }
 			   alert(codigo_produto);
 			});
 			
@@ -494,10 +496,11 @@
 
 		
 		$(document).on('pageinit', '#tela10', function(){ 
+			alert('teste tela10');
 			if ($.mobile.pageData && $.mobile.pageData.codigo){
 				codigo_produto =  $.mobile.pageData.codigo;
 			}
-		
+			alert(codigo_produto);
 			//var parameters = $(this).data("url").split("?")[1];
 			//parameter = parameters.replace("codigo=","");
 			//codigo_produto = parameter;
