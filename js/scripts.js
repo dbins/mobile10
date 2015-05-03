@@ -213,7 +213,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Novidades!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -224,7 +224,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -254,7 +254,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Vestidos!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -265,7 +265,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -295,7 +295,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Saias!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -306,7 +306,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -336,7 +336,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Blusas!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -347,7 +347,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -377,7 +377,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Casacos!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -388,7 +388,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -418,7 +418,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Calças!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -429,7 +429,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -459,7 +459,7 @@
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Shorts!</h2>";
-					conteudo = conteudo + '<div id="container_produtos">';
+					conteudo = conteudo + '<div id="container_produtos" data-filter="true" data-input="#divOfPs-input">';
 					$(data).find('produtos').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -470,7 +470,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -492,7 +492,11 @@
 		});
 
 		
-		$(document).on('pageinit', '#tela10', function(){  
+		$(document).on('pageinit', '#tela10', function(){ 
+			if ($.mobile.pageData && $.mobile.pageData.codigo){
+				codigo_produto =  $.mobile.pageData.codigo);
+			}
+		
 			//var parameters = $(this).data("url").split("?")[1];
 			//parameter = parameters.replace("codigo=","");
 			//codigo_produto = parameter;
