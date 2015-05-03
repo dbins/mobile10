@@ -63,7 +63,11 @@
 			//navigator.screenOrientation.set('fullSensor');
 			//document.addEventListener("orientationChanged", updateOrientation);
 			//document.addEventListener("orientationchange", updateOrientation, true);
-		
+			$("a").on("click", function (event) {
+			   alert(codigo_produto);
+			   codigo_produto = $(this).data('parm');
+			   alert(codigo_produto);
+			});
 			
 		}
 		
@@ -89,11 +93,7 @@
 		//	}
 		//}
 		
-		$("a").on("click", function (event) {
-		   alert(codigo_produto);
-		   codigo_produto = $(this).data('parm');
-		   alert(codigo_produto);
-		});
+		
 		
 		$(document).on('pageinit', '#noticias', function(){  
 			
