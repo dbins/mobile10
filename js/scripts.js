@@ -8,7 +8,10 @@
 		
 		function TrocarCodigo(codigo_informado){
 			alert('codigo informado' + codigo_informado);
+			$.mobile.changePage("#tela10", { transition: "slideup"} );
 			codigo_produto = codigo_informado;
+			//jJquery Mobile 1.4 only
+			//$.mobile.pageContainer.pagecontainer("change", "#page", { options });
 		}
 
 		function echeck(str) {
@@ -64,11 +67,9 @@
 			//document.addEventListener("orientationChanged", updateOrientation);
 			//document.addEventListener("orientationchange", updateOrientation, true);
 			$("a").on("click", function (event) {
-			   alert(codigo_produto);
 			  if(typeof $(this).data('parm') !== "undefined") {
 				codigo_produto = $(this).data('parm');
 			  }
-			   alert(codigo_produto);
 			});
 			
 		}
@@ -227,7 +228,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a data-parm="' + codigo + '"   href="javascript:TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
