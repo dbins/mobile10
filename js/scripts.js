@@ -552,16 +552,14 @@
 						conteudo = conteudo + '	</div>';
 						conteudo = conteudo + '</div>';
 									
-					},
-					error: function (request,error) {
-						// This callback function will trigger on unsuccessful action                
-						navigator.notification.alert('Houve um erro ao buscar as informações deste produto!', alertDismissed, 'Miss Trendy', 'OK');
-					}
-					
-					);
+					});
 				
 					$("#main_tela10").html(conteudo);
 
+				},
+				error: function (request,error) {
+					// This callback function will trigger on unsuccessful action                
+					navigator.notification.alert('Houve um erro ao buscar as informações deste produto!', alertDismissed, 'Miss Trendy', 'OK');
 				}
 			});
 		});			
