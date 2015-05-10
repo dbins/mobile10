@@ -573,4 +573,17 @@
 					navigator.notification.alert('Houve um erro ao buscar as informações deste produto!', alertDismissed, 'Miss Trendy', 'OK');
 				}
 			});
-		});			
+		});	
+
+		$(document).on('pagebeforeshow', '#tela7', function(e, data){     
+			$("a").on("click", function (event) {
+			  alert('cliquetmp!');
+			  if ($(this).attr('id') !== undefined) {
+				var tmp_id = $(this).attr('id');
+				codigo_produto = tmp_id;
+				alert(tmp_id);
+			  }
+			  alert('cliquetmp2!');
+			  
+			});
+		});	
