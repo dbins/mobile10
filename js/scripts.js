@@ -505,7 +505,7 @@
 		});
 
 		
-		$(document).on('pageshow', '#tela10', function(){ 
+		$(document).on('pageinit', '#tela10', function(){ 
 			//alert('teste tela10');
 			//alert("codigo tela10:" + codigo_produto);
 			//Para nao travar o webservice
