@@ -516,12 +516,12 @@
 				codigo_produto = 0;
 			}
 			
-			if ($(this).data("url") !== undefined){
-				var parameters = $(this).data("url").split("?")[1];
-				parameter = parameters.replace("codigo=","");
-				alert('1');
-				alert(parameter);
-			}
+			//if ($(this).data("url") !== undefined){
+			//	var parameters = $(this).data("url").split("?")[1];
+			//	parameter = parameters.replace("codigo=","");
+			//	alert('1');
+			//	alert(parameter);
+			//}
 			
 			//codigo_produto = parameter;
 			//Produto Selecionado
