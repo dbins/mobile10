@@ -509,16 +509,17 @@
 			//alert('teste tela10');
 			//alert("codigo tela10:" + codigo_produto);
 			//Para nao travar o webservice
-			if(isNaN(codigo_produto)){
-				codigo_produto = 0;
-			}
+			//if(isNaN(codigo_produto)){
+			//	codigo_produto = 0;
+			//}
 			
-			if ($(this).data("url") !== undefined){
+			//if ($(this).data("url") !== undefined){
 				var parameters = $(this).data("url").split("?")[1];
 				parameter = parameters.replace("codigo=","");
 				alert('1');
+				codigo_produto = parameter;
 				alert(parameter);
-			}
+			//}
 			
 			//codigo_produto = parameter;
 			//Produto Selecionado
