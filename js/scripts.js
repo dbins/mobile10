@@ -504,11 +504,11 @@
 		});
 
 		
-		$(document).on('pageinit', '#tela10', function(){ 
+		$(document).on('pageshow', '#tela10', function(){ 
 			alert('teste tela10');
-			if ($.mobile.pageData && $.mobile.pageData.codigo){
-				codigo_produto =  $.mobile.pageData.codigo;
-			}
+			//if ($.mobile.pageData && $.mobile.pageData.codigo){
+			//	codigo_produto =  $.mobile.pageData.codigo;
+			//}
 			alert(codigo_produto);
 			//var parameters = $(this).data("url").split("?")[1];
 			//parameter = parameters.replace("codigo=","");
