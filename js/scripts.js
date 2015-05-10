@@ -6,13 +6,13 @@
 			// do something
 		}
 		
-		function TrocarCodigo(codigo_informado){
-			alert('codigo informado' + codigo_informado);
-			$.mobile.changePage("#tela10", { transition: "slideup"} );
-			codigo_produto = codigo_informado;
+		//function TrocarCodigo(codigo_informado){
+			//alert('codigo informado' + codigo_informado);
+			//$.mobile.changePage("#tela10", { transition: "slideup"} );
+			//codigo_produto = codigo_informado;
 			//jJquery Mobile 1.4 only
 			//$.mobile.pageContainer.pagecontainer("change", "#page", { options });
-		}
+		//}
 
 		function echeck(str) {
 
@@ -236,7 +236,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"   href="javascript:TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -277,7 +277,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -318,7 +318,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -359,7 +359,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -400,7 +400,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -441,7 +441,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
@@ -482,7 +482,7 @@
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10?codigo="' + codigo + '" " onclick="TrocarCodigo("' + codigo + '")"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
+						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#tela10"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
 						conteudo = conteudo + '</div>';
 						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
 						if (valor_promo == ""){
