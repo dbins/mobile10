@@ -498,6 +498,7 @@
 					});
 					conteudo = conteudo + '</div>';
 					$("#main_tela7").html(conteudo);
+					$('[data-role="main"]').trigger('create');
 
 				}
 			});
@@ -509,7 +510,12 @@
 			//if ($.mobile.pageData && $.mobile.pageData.codigo){
 			//	codigo_produto =  $.mobile.pageData.codigo;
 			//}
-			alert("codigo tela10" + codigo_produto);
+			alert("codigo tela10:" + codigo_produto);
+			//Para nao travar o webservice
+			if(isNaN(codigo_produto)){
+				codigo_produto = 0;
+			}
+			
 			//var parameters = $(this).data("url").split("?")[1];
 			//parameter = parameters.replace("codigo=","");
 			//codigo_produto = parameter;
