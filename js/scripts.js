@@ -81,18 +81,6 @@
 			 }
 			});
 			
-			$("#nome_produto").autocomplete({
-				  source: "http://www.misstrendy.com.br/JSON.php",
-				  minLength: 3,
-				  select: function( event, ui ) {
-					$( "#nome_produto" ).val( ui.item.label );
-					return false;
-				  }
-				}).autocomplete( "instance" )._renderItem = function( ul, item ) {
-				return $("<li>").append( "<a><img id='project-icon' src='" + item.icon + "' class='ui-state-default' alt=''>" + item.label + "<br>" + item.desc + "</a>" )
-					.appendTo( ul );
-				};
-			
 		}
 		
 		//function updateOrientation(e) {
