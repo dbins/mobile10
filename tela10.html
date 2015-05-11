@@ -30,12 +30,47 @@
 	<script src="js/scripts.js"></script>
 </head>
 <body>
-<div data-role="page" id="tela10">
+
+<div id="slidemenu">
+
+		<div id="profile">
+			<img src="img/miss-trendy.png">
+			<div class="profile_info"></div>
+		</div>
+
+		<h3>MENU</h3>
+
+		<ul>
+			<li><a id="link_home" href="#main"><img src="img/smico3.png">Home</a></li>
+			<li><a id="link_novidades" href="#tela1"><img src="img/smico5.png">Novidades!</a></li>
+			<li><a id="link_vestidos" href="#tela2"><img src="img/smico4.png">Vestidos</a></li>
+			<li><a id="link_saias"  href="#tela3"><img src="img/smico4.png">Saias</a></li>
+			<li><a id="link_blusas"  href="#tela4" rel="external"><img src="img/smico4.png">Blusas</a></li>
+			<li><a id="link_casacos" href="#tela5"><img src="img/smico4.png">Casacos</a></li>
+			<li><a id="link_calcas" href="#tela6"><img src="img/smico4.png">Cal&ccedil;as</a></li>
+			<li><a id="link_shorts" href="#tela7"><img src="img/smico4.png">Shorts</a></li>
+			<li><a id="link_shorts" href="#tela11"><img src="img/smico5.png">Busca</a></li>
+		</ul>
+
+		<h3>MISS TRENDY</h3>
+
+		<ul>
+			<li><a id="link_noticias" href="#noticias"><img src="img/smico3.png">Dicas</a></li>
+			<li><a id="link_faleconosco" href="#faleconosco" rel="external"><img src="img/smico5.png">Enviar Mensagem</a></li>
+		</ul>
+
+	</div>
+	
+	<div data-role="page" id="tela10" data-theme="a">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Detalhes do Produto</h1>
+		</div>
 	
 		<div data-role="main" id="main_tela10" class="ui-content">
 		
 		</div>
- </div>
+	</div>
 	<script type="text/javascript" src="phonegap.js"></script>
 </body>
 </html>

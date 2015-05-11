@@ -50,6 +50,7 @@
 			<li><a id="link_casacos" href="#tela5"><img src="img/smico4.png">Casacos</a></li>
 			<li><a id="link_calcas" href="#tela6"><img src="img/smico4.png">Cal&ccedil;as</a></li>
 			<li><a id="link_shorts" href="#tela7"><img src="img/smico4.png">Shorts</a></li>
+			<li><a id="link_shorts" href="#tela11"><img src="img/smico5.png">Busca</a></li>
 		</ul>
 
 		<h3>MISS TRENDY</h3>
@@ -251,6 +252,26 @@
 				<textarea name="mensagem_contato" id="mensagem_contato"></textarea><br/>
 			  </div>
 			  <input type="submit" data-inline="true" id="enviar_contato" value="Enviar">
+			</form>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="tela11" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Localizar Produto</h1>
+		</div>
+
+		<div data-role="main" id="main_tela11" class="ui-content">
+			 <p>Digite o produto que deseja localizar</p>
+			  <form id="check-contato" data-ajax="false">
+			  <div class="ui-field-contain">
+				<label for="fullname">Produto:</label>
+				<input type="text" name="nome_produto" id="nome_produto">  <br/>     
+			  </div>
+			  <input type="submit" data-inline="true" id="enviar_busca" value="Localizar">
 			</form>
 		</div>
 
