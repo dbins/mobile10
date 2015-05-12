@@ -836,9 +836,9 @@
 					conteudo = conteudo + '<th width="15%">Total</th>';
 					conteudo = conteudo + '</tr>';
 	
-					$tmp_contador = 0;
+					var tmp_contador = 0;
 					$(data).find('produtos').each(function(){
-						$tmp_contador++;
+						tmp_contador++;
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
 						var nome = $(this).find("pro_descricao").text();
