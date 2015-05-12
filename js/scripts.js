@@ -863,7 +863,7 @@
 					}
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
-					if ($tmp_contador > 0){
+					if (tmp_contador > 0){
 						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
 					}
 					
