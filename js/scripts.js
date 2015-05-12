@@ -647,7 +647,7 @@
 			parameter = parameters.replace("produto=","");
 			codigo_produto = parameter;
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_comprar.php',
-			data: {id_prod : codigo_produto, CPF: '4444444444'},
+			data: {id_prod : codigo_produto, CPF: '44444444444'},
 			type: 'post',                   
 			async: 'true',
             dataType: 'text',
@@ -819,7 +819,7 @@
 		});	
 		
 		
-		$(document).on('pageinit', '#carrinho', function(){ 
+		$(document).on('pageshow', '#carrinho', function(){ 
 			$.ajax({
 				type: "GET",
 				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
