@@ -557,6 +557,10 @@
 						conteudo = conteudo + '	<div class="descprod">';
 						conteudo = conteudo + '		<p>' + detalhes + '</p>';
 						conteudo = conteudo + '		<p><strong>Tamanho:' + tamanho + '</strong></p>';
+						
+						conteudo = conteudo + '<p></p>';
+						conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '">Fazer Pedido</a></p>';
+						
 						conteudo = conteudo + '	</div>';
 						conteudo = conteudo + '</div>';
 									
@@ -638,4 +642,236 @@
 		});	
 		});	
 		
+		$(document).on('pageshow', '#comprar', function(){ 
+			var parameters = $(this).data("url").split("?")[1];
+			parameter = parameters.replace("produto=","");
+			codigo_produto = parameter;
+			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_comprar.php',
+			data: {id_prod : codigo_produto, CPF: '4444444444'},
+			type: 'post',                   
+			async: 'true',
+            dataType: 'text',
+			beforeSend: function() {
+			// This callback function will trigger before data is sent
+			$.mobile.loading('show', {
+				theme: "a",
+				text: "Aguarde...",
+				textonly: true,
+				textVisible: true
+			});
+			},
+			complete: function() {
+				// This callback function will trigger on data sent/received complete
+				$.mobile.loading('hide'); // This will hide ajax spinner
+			},
+			success: function (result) {
+				if(result =="ERRO") {
+					navigator.notification.alert('Houve um erro ao adicionar o produto!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#index");
+				}
+				if(result =="JA EXISTE") {
+					navigator.notification.alert('O produto já foi adicionado ao seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#index");
+				}	
+				if(result =="SEM ESTOQUE") {
+					navigator.notification.alert('O produto não está mais disponível em nosso estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#index");
+				}
+				if(result =="OK") {
+					navigator.notification.alert('O produto foi adicionado ao seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}				
+			},
+			error: function (request,error) {
+				// This callback function will trigger on unsuccessful action                
+				navigator.notification.alert('Houve um erro ao enviar suas informações!', alertDismissed, 'Miss Trendy', 'OK');
+			}
+			});
+			
+		});	
+
+		$(document).on('pageshow', '#remover', function(){ 
+			var parameters = $(this).data("url").split("?")[1];
+			parameter = parameters.replace("id=","");
+			var codigo_id = parameter;
+			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_remover.php',
+			data: {id : codigo_id},
+			type: 'post',                   
+			async: 'true',
+            dataType: 'text',
+			beforeSend: function() {
+			// This callback function will trigger before data is sent
+			$.mobile.loading('show', {
+				theme: "a",
+				text: "Aguarde...",
+				textonly: true,
+				textVisible: true
+			});
+			},
+			complete: function() {
+				// This callback function will trigger on data sent/received complete
+				$.mobile.loading('hide'); // This will hide ajax spinner
+			},
+			success: function (result) {
+				if(result =="ERRO") {
+					navigator.notification.alert('O produto já havia sido removido do seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}
+				if(result =="OK") {
+					navigator.notification.alert('O produto foi removido do seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}				
+			},
+			error: function (request,error) {
+				// This callback function will trigger on unsuccessful action                
+				navigator.notification.alert('Houve um erro ao enviar suas informações!', alertDismissed, 'Miss Trendy', 'OK');
+			}
+			});
+			
+		});			
+		
+		
+		$(document).on('pageshow', '#alterar', function(){ 
+			var parameters = $(this).data("url").split("?")[1];
+			parameter = parameters.replace("id=","");
+			var codigo_id = parameter;
+			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_alterar.php',
+			data: {id : codigo_id, pro_cod : 0, qtde: 0},
+			type: 'post',                   
+			async: 'true',
+            dataType: 'text',
+			beforeSend: function() {
+			// This callback function will trigger before data is sent
+			$.mobile.loading('show', {
+				theme: "a",
+				text: "Aguarde...",
+				textonly: true,
+				textVisible: true
+			});
+			},
+			complete: function() {
+				// This callback function will trigger on data sent/received complete
+				$.mobile.loading('hide'); // This will hide ajax spinner
+			},
+			success: function (result) {
+				if(result =="ERRO") {
+					navigator.notification.alert('Houve um erro ao atualizar a quantidade!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}
+				if(result =="SEM ESTOQUE") {
+					navigator.notification.alert('O produto não está mais disponível em estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}
+				if(result =="OK") {
+					$.mobile.changePage("#carrinho");
+				}				
+			},
+			error: function (request,error) {
+				// This callback function will trigger on unsuccessful action                
+				navigator.notification.alert('Houve um erro ao enviar suas informações!', alertDismissed, 'Miss Trendy', 'OK');
+			}
+			});
+			
+		});	
+		
+		$(document).on('pageshow', '#finalizar', function(){ 
+			var parameters = $(this).data("url").split("?")[1];
+			parameter = parameters.replace("CPF=","");
+			var var_CPF = parameter;
+			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_finaliza_pedido.php',
+			data: {CPF : var_CPF},
+			type: 'post',                   
+			async: 'true',
+            dataType: 'text',
+			beforeSend: function() {
+			// This callback function will trigger before data is sent
+			$.mobile.loading('show', {
+				theme: "a",
+				text: "Aguarde...",
+				textonly: true,
+				textVisible: true
+			});
+			},
+			complete: function() {
+				// This callback function will trigger on data sent/received complete
+				$.mobile.loading('hide'); // This will hide ajax spinner
+			},
+			success: function (result) {
+				if(result =="ERRO") {
+					navigator.notification.alert('Não existem mais produtos em seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}
+				if(result =="SEM ESTOQUE") {
+					navigator.notification.alert('Um dos produtos selecionados não está mais disponível em estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
+					$.mobile.changePage("#carrinho");
+				}
+				if(result =="OK") {
+					navigator.notification.alert('Pedido de compra gravado com sucesso!', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
+				}				
+			},
+			error: function (request,error) {
+				// This callback function will trigger on unsuccessful action                
+				navigator.notification.alert('Houve um erro ao enviar suas informações!', alertDismissed, 'Miss Trendy', 'OK');
+			}
+			});
+			
+		});	
+		
+		
+		$(document).on('pageinit', '#carrinho', function(){ 
+			$.ajax({
+				type: "GET",
+				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
+				dataType: "xml",
+				success: function(data) {
+					var conteudo = '<header class="titulos"><span style="color:#333">Meu Pedido</header>';
+					
+					conteudo = conteudo + '<table width="100%" border="0" class="tabela">';
+					conteudo = conteudo + '<tr bgcolor="#f6c401" height="37">';
+					conteudo = conteudo + '<th width="8%" >Excluir</th>';
+					conteudo = conteudo + '<th width="42%">Produto</th>';
+					conteudo = conteudo + '<th width="15%">Qtd</th>';
+					'<th width="15%">Valor</th>';
+					conteudo = conteudo + '<th width="15%">Total</th>';
+					conteudo = conteudo + '</tr>';
+	
+					$tmp_contador = 0;
+					$(data).find('produto').each(function(){
+						$tmp_contador++;
+						var codigo = $(this).find("pro_cod").text();
+						var imagem = $(this).find("pro_imagem").text();
+						var nome = $(this).find("pro_descricao").text();
+						var valor = $(this).find("pro_valor").text();
+						var quantidade = $(this).find("quantidade").text();
+						var total = $(this).find("total").text();
+						var id_carrinho = $(this).find("id_carrinho").text();
+						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						
+						conteudo = conteudo + '<tr>';
+						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '>Excluir</a></td>';
+						conteudo = conteudo + '<td>' + nome + '</td>';
+						conteudo = conteudo + '<td>' + $qtde + '</td>';
+						conteudo = conteudo + '<td>' + valor + '</td>';
+						conteudo = conteudo + '<td>' + total + '</td>';
+						conteudo = conteudo + '</tr>';
+				
+						
+					});
+					
+					conteudo = conteudo + '</table>';
+					conteudo = conteudo + '<p></p>';
+					if ($tmp_contador > 0){
+						conteudo = conteudo + '<p><a href="finalizar.html">Finalizar Pedido</a></p>';
+					}
+					
+					$("#main_carrinho").html(conteudo);
+
+				},
+				error: function (request,error) {
+					// This callback function will trigger on unsuccessful action                
+					navigator.notification.alert('Houve um erro ao buscar as informações do seu pedido!', alertDismissed, 'Miss Trendy', 'OK');
+				}
+			});
+		});	
 		
