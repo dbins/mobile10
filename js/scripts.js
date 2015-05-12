@@ -837,7 +837,7 @@
 					conteudo = conteudo + '</tr>';
 	
 					$tmp_contador = 0;
-					$(data).find('produto').each(function(){
+					$(data).find('produtos').each(function(){
 						$tmp_contador++;
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -858,7 +858,9 @@
 				
 						
 					});
-					
+					if ($tmp_contador == 0){
+						conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
+					}
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
 					if ($tmp_contador > 0){
