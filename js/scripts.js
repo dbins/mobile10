@@ -858,7 +858,7 @@
 				
 						
 					});
-					if ($tmp_contador == 0){
+					if (tmp_contador == 0){
 						conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
 					}
 					conteudo = conteudo + '</table>';
