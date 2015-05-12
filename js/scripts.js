@@ -559,7 +559,7 @@
 						conteudo = conteudo + '		<p><strong>Tamanho:' + tamanho + '</strong></p>';
 						
 						conteudo = conteudo + '<p></p>';
-						conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '">Fazer Pedido</a></p>';
+						conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '" data-role="button">Fazer Pedido</a></p>';
 						
 						conteudo = conteudo + '	</div>';
 						conteudo = conteudo + '</div>';
@@ -667,19 +667,19 @@
 			success: function (result) {
 				if(result =="ERRO") {
 					navigator.notification.alert('Houve um erro ao adicionar o produto!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#index");
+					$.mobile.changePage("index.html");
 				}
 				if(result =="JA EXISTE") {
 					navigator.notification.alert('O produto já foi adicionado ao seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#index");
+					$.mobile.changePage("index.html");
 				}	
 				if(result =="SEM ESTOQUE") {
 					navigator.notification.alert('O produto não está mais disponível em nosso estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#index");
+					$.mobile.changePage("index.html");
 				}
 				if(result =="OK") {
 					navigator.notification.alert('O produto foi adicionado ao seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}				
 			},
 			error: function (request,error) {
@@ -715,11 +715,11 @@
 			success: function (result) {
 				if(result =="ERRO") {
 					navigator.notification.alert('O produto já havia sido removido do seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}
 				if(result =="OK") {
 					navigator.notification.alert('O produto foi removido do seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}				
 			},
 			error: function (request,error) {
@@ -756,14 +756,14 @@
 			success: function (result) {
 				if(result =="ERRO") {
 					navigator.notification.alert('Houve um erro ao atualizar a quantidade!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}
 				if(result =="SEM ESTOQUE") {
 					navigator.notification.alert('O produto não está mais disponível em estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}
 				if(result =="OK") {
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}				
 			},
 			error: function (request,error) {
@@ -799,15 +799,15 @@
 			success: function (result) {
 				if(result =="ERRO") {
 					navigator.notification.alert('Não existem mais produtos em seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}
 				if(result =="SEM ESTOQUE") {
 					navigator.notification.alert('Um dos produtos selecionados não está mais disponível em estoque!', alertDismissed, 'Miss Trendy', 'OK'); 
-					$.mobile.changePage("#carrinho");
+					$.mobile.changePage("carrinho.html");
 				}
 				if(result =="OK") {
 					navigator.notification.alert('Pedido de compra gravado com sucesso!', alertDismissed, 'Miss Trendy', 'OK');
-					$.mobile.changePage("#index");
+					$.mobile.changePage("index.html");
 				}				
 			},
 			error: function (request,error) {
@@ -862,7 +862,7 @@
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
 					if ($tmp_contador > 0){
-						conteudo = conteudo + '<p><a href="finalizar.html">Finalizar Pedido</a></p>';
+						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
 					}
 					
 					$("#main_carrinho").html(conteudo);
