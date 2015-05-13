@@ -732,11 +732,23 @@
 		
 		
 		$(document).on('pageshow', '#alterar', function(){ 
-			var parameters = $(this).data("url").split("?")[1];
-			parameter = parameters.replace("id=","");
-			var codigo_id = parameter;
+			alert ('altera');
+			var s = $(this).data("url");
+			alert ('1');
+			var idPart = s.split("&")[0];
+			alert ('2');
+			var prodPart = s.split("&")[1];
+			alert ('3');
+			var qtdePart = s.split("&")[2];
+			alert ('4');
+			var codigo_id = idPart.split("=")[1];
+			alert ('5');
+			var var_pro_cod = prodPart.split("=")[1];
+			alert ('6');
+			var var_qtde = qtdePart.split("=")[1];
+
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_alterar.php',
-			data: {id : codigo_id, pro_cod : 0, qtde: 0},
+			data: {id : codigo_id, pro_cod : var_pro_cod, qtde: var_qtde},
 			type: 'post',                   
 			async: 'true',
             dataType: 'text',
@@ -775,11 +787,11 @@
 		});	
 		
 		$(document).on('pageshow', '#finalizar', function(){ 
-			alert('1');
+			
 			var parameters = $(this).data("url").split("?")[1];
 			parameter = parameters.replace("CPF=","");
 			var var_CPF = parameter;
-			alert('2');
+			
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_finaliza_pedido.php',
 			data: {CPF : var_CPF},
 			type: 'post',                   
@@ -799,8 +811,6 @@
 				$.mobile.loading('hide'); // This will hide ajax spinner
 			},
 			success: function (result) {
-				alert('3');
-				alert(result);
 				if(result =="ERRO") {
 					navigator.notification.alert('Não existem mais produtos em seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
 					$.mobile.changePage("carrinho.html");
@@ -838,6 +848,7 @@
 					conteudo = conteudo + '<th width="8%" >Excluir</th>';
 					conteudo = conteudo + '<th width="42%">Produto</th>';
 					conteudo = conteudo + '<th width="15%">Qtd</th>';
+					conteudo = conteudo + '<th width="15%">[+] [-]</th>';
 					conteudo = conteudo + '<th width = "15%">Valor</th>';
 					conteudo = conteudo + '<th width="15%">Total</th>';
 					conteudo = conteudo + '</tr>';
@@ -859,6 +870,22 @@
 						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '">Excluir</a></td>';
 						conteudo = conteudo + '<td>' + nome + '</td>';
 						conteudo = conteudo + '<td>' + quantidade + '</td>';
+						conteudo = conteudo + '<td>';
+						
+						var tmp_qtde1 = Math.abs(quantidade) + 1;
+						var tmp_qtde2 = Math.abs(quantidade) - 1;
+						
+						conteudo = conteudo + '<a href="alterar.html?id=' + id_carrinho + '&pro_cod=' + codigo + '&qtde=' + tmp_qtde1 + '"> [ + ] </a> ';
+						
+						if (Math.abs(quantidade) > 1){
+						
+						conteudo = conteudo + '<a href="alterar.html?id=' + id_carrinho + '&pro_cod=' + codigo + '&qtde=' + tmp_qtde2 + '"> [ - ] </a> ';
+						
+						}
+						
+						
+						
+						conteudo = conteudo + '</td>';
 						conteudo = conteudo + '<td>' + valor + '</td>';
 						conteudo = conteudo + '<td>' + total + '</td>';
 						conteudo = conteudo + '</tr>';
@@ -882,4 +909,6 @@
 				}
 			});
 		});	
+		
+		
 		
