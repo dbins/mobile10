@@ -800,6 +800,7 @@
 			},
 			success: function (result) {
 				alert('3');
+				alert(result);
 				if(result =="ERRO") {
 					navigator.notification.alert('Não existem mais produtos em seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
 					$.mobile.changePage("carrinho.html");
