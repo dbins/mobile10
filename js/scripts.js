@@ -732,19 +732,13 @@
 		
 		
 		$(document).on('pageshow', '#alterar', function(){ 
-			alert ('altera');
+			
 			var s = $(this).data("url");
-			alert ('1');
 			var idPart = s.split("&")[0];
-			alert ('2');
 			var prodPart = s.split("&")[1];
-			alert ('3');
 			var qtdePart = s.split("&")[2];
-			alert ('4');
 			var codigo_id = idPart.split("=")[1];
-			alert ('5');
 			var var_pro_cod = prodPart.split("=")[1];
-			alert ('6');
 			var var_qtde = qtdePart.split("=")[1];
 
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_alterar.php',
