@@ -862,15 +862,15 @@
 				
 						
 					});
-					
-					//if (tmp_contador == 0){
-					//	conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
-					//}
+					alert('5');
+					if (tmp_contador == 0){
+						conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
+					}
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
-					//if (tmp_contador > 0){
-					//	conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
-					//}
+					if (tmp_contador > 0){
+						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
+					}
 					
 					$("#main_carrinho").html(conteudo);
 
