@@ -820,11 +820,13 @@
 		
 		
 		$(document).on('pageshow', '#carrinho', function(){ 
+			alert('sucesso 1!');
 			$.ajax({
 				type: "GET",
 				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
 				dataType: "xml",
 				success: function(data) {
+					alert('sucesso 2!');
 					var conteudo = '<header class="titulos"><span style="color:#333">Meu Pedido</header>';
 					
 					conteudo = conteudo + '<table width="100%" border="0" class="tabela">';
@@ -836,8 +838,10 @@
 					conteudo = conteudo + '<th width="15%">Total</th>';
 					conteudo = conteudo + '</tr>';
 	
+					alert('3');
 					var tmp_contador = 0;
 					$(data).find('produtos').each(function(){
+						alert('4');
 						tmp_contador++;
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -858,14 +862,15 @@
 				
 						
 					});
-					if (tmp_contador == 0){
-						conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
-					}
+					
+					//if (tmp_contador == 0){
+					//	conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
+					//}
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
-					if (tmp_contador > 0){
-						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
-					}
+					//if (tmp_contador > 0){
+					//	conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
+					//}
 					
 					$("#main_carrinho").html(conteudo);
 
