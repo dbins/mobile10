@@ -842,26 +842,29 @@
 					var tmp_contador = 0;
 					$(data).find('produtos').each(function(){
 						alert('4');
-						tmp_contador++;
+						//tmp_contador++;
 						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
 						alert('4a');
-						var valor = $(this).find("pro_valor").text();
-						var quantidade = $(this).find("quantidade").text();
+						var imagem = $(this).find("pro_imagem").text();
 						alert('4b');
+						var nome = $(this).find("pro_descricao").text();
+						alert('4c');
+						var valor = $(this).find("pro_valor").text();
+						alert('4d');
+						var quantidade = $(this).find("quantidade").text();
+						alert('4e');
 						var total = $(this).find("total").text();
 						var id_carrinho = $(this).find("id_carrinho").text();
-						alert('4c');
+						alert('4f');
 						imagem = 'http://www.misstrendy.com.br/' + imagem;
 						
 						conteudo = conteudo + '<tr>';
 						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '>Excluir</a></td>';
 						conteudo = conteudo + '<td>' + nome + '</td>';
-						alert('4e');
+						alert('4g');
 						conteudo = conteudo + '<td>' + quantidade + '</td>';
 						conteudo = conteudo + '<td>' + valor + '</td>';
-						alert('4f');
+						alert('4h');
 						conteudo = conteudo + '<td>' + total + '</td>';
 						conteudo = conteudo + '</tr>';
 				
