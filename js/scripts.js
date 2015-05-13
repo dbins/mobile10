@@ -820,13 +820,13 @@
 		
 		
 		$(document).on('pageshow', '#carrinho', function(){ 
-			alert('sucesso 1!');
+			
 			$.ajax({
 				type: "GET",
 				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
 				dataType: "xml",
 				success: function(data) {
-					alert('sucesso 2!');
+					
 					var conteudo = '<header class="titulos"><span style="color:#333">Meu Pedido</header>';
 					
 					conteudo = conteudo + '<table width="100%" border="0" class="tabela">';
@@ -838,45 +838,34 @@
 					conteudo = conteudo + '<th width="15%">Total</th>';
 					conteudo = conteudo + '</tr>';
 	
-					alert('3');
-					var tmp_contador = 0;
+					
+					var tmp_contador = $(data).find('produtos').length;
 					$(data).find('produtos').each(function(){
-						alert('4');
 						//tmp_contador++;
 						var codigo = $(this).find("pro_cod").text();
-						alert('4a');
 						var imagem = $(this).find("pro_imagem").text();
-						alert('4b');
 						var nome = $(this).find("pro_descricao").text();
-						alert('4c');
 						var valor = $(this).find("pro_valor").text();
-						alert('4d');
 						var quantidade = $(this).find("quantidade").text();
-						alert('4e');
 						var total = $(this).find("total").text();
 						var id_carrinho = $(this).find("id_carrinho").text();
-						alert('4f');
 						imagem = 'http://www.misstrendy.com.br/' + imagem;
 						
 						conteudo = conteudo + '<tr>';
-						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '>Excluir</a></td>';
+						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '">Excluir</a></td>';
 						conteudo = conteudo + '<td>' + nome + '</td>';
-						alert('4g');
 						conteudo = conteudo + '<td>' + quantidade + '</td>';
 						conteudo = conteudo + '<td>' + valor + '</td>';
-						alert('4h');
 						conteudo = conteudo + '<td>' + total + '</td>';
 						conteudo = conteudo + '</tr>';
-				
 						
 					});
-					alert('5');
 					if (tmp_contador == 0){
 						conteudo = conteudo + '<tr><td colspan="5" align="center">Não existem produtos selecionados</td></tr>';
 					}
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
-					if (tmp_contador > 0){
+					if (Math.abs(tmp_contador) > 0){
 						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
 					}
 					
