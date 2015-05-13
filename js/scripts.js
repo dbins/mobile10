@@ -775,9 +775,11 @@
 		});	
 		
 		$(document).on('pageshow', '#finalizar', function(){ 
+			alert('1');
 			var parameters = $(this).data("url").split("?")[1];
 			parameter = parameters.replace("CPF=","");
 			var var_CPF = parameter;
+			alert('2');
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_finaliza_pedido.php',
 			data: {CPF : var_CPF},
 			type: 'post',                   
@@ -797,6 +799,7 @@
 				$.mobile.loading('hide'); // This will hide ajax spinner
 			},
 			success: function (result) {
+				alert('3');
 				if(result =="ERRO") {
 					navigator.notification.alert('Não existem mais produtos em seu pedido!', alertDismissed, 'Miss Trendy', 'OK'); 
 					$.mobile.changePage("carrinho.html");
@@ -820,7 +823,7 @@
 		
 		
 		$(document).on('pageshow', '#carrinho', function(){ 
-			
+		
 			$.ajax({
 				type: "GET",
 				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
@@ -834,7 +837,7 @@
 					conteudo = conteudo + '<th width="8%" >Excluir</th>';
 					conteudo = conteudo + '<th width="42%">Produto</th>';
 					conteudo = conteudo + '<th width="15%">Qtd</th>';
-					'<th width="15%">Valor</th>';
+					conteudo = conteudo + '<th width = "15%">Valor</th>';
 					conteudo = conteudo + '<th width="15%">Total</th>';
 					conteudo = conteudo + '</tr>';
 	
@@ -866,7 +869,7 @@
 					conteudo = conteudo + '</table>';
 					conteudo = conteudo + '<p></p>';
 					if (Math.abs(tmp_contador) > 0){
-						conteudo = conteudo + '<p><a href="finalizar.html" data-role="button">Finalizar Pedido</a></p>';
+						conteudo = conteudo + '<p><a href="finalizar.html?CPF=44444444444" data-role="button">Finalizar Pedido</a></p>';
 					}
 					
 					$("#main_carrinho").html(conteudo);
