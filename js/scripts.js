@@ -846,17 +846,22 @@
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
 						var nome = $(this).find("pro_descricao").text();
+						alert('4a');
 						var valor = $(this).find("pro_valor").text();
 						var quantidade = $(this).find("quantidade").text();
+						alert('4b');
 						var total = $(this).find("total").text();
 						var id_carrinho = $(this).find("id_carrinho").text();
+						alert('4c');
 						imagem = 'http://www.misstrendy.com.br/' + imagem;
 						
 						conteudo = conteudo + '<tr>';
 						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '>Excluir</a></td>';
 						conteudo = conteudo + '<td>' + nome + '</td>';
-						conteudo = conteudo + '<td>' + $qtde + '</td>';
+						alert('4e');
+						conteudo = conteudo + '<td>' + quantidade + '</td>';
 						conteudo = conteudo + '<td>' + valor + '</td>';
+						alert('4f');
 						conteudo = conteudo + '<td>' + total + '</td>';
 						conteudo = conteudo + '</tr>';
 				
