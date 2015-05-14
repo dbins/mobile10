@@ -913,29 +913,25 @@
 				success: function(data) {
 					
 					var conteudo = "";
-					alert('1');
 					$(data).find('banners').each(function(){
-						alert('2');
 						var link = $(this).find("link").text();
 						var imagem = $(this).find("imagem").text();
 						imagem = 'http://www.misstrendy.com.br/' + imagem;
 						
 						conteudo = conteudo + '<div class="item">';
-                        alert('3');
                         if (link != "") {
-							conteudo = conteudo + '<a href="' + link + '">';
+							conteudo = conteudo + '<a href="http://www.misstrendy.com.br/' + link + '">';
                         }
                        
                         conteudo = conteudo + '<img src="' + imagem + '">';
-                        alert('4');
 					    if (link != "") {
 						    conteudo = conteudo + '</a>';
                         }
 					});
 					
-					alert(conteudo);
+					
 					$("#owl-demo").html(conteudo);
-					alert('5');
+					$('[data-role="main"]').trigger('create');
 
 				},
 				error: function (request,error) {
