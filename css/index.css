@@ -21,4 +21,10 @@ font-size:14px; color:#666; text-transform:uppercase; text-align:center;}
 .titprod{ font-size:25px; font-family: 'bebas_neueregular'; float:left; position:relative; width:100%;}
 .img{ width:100%; height:auto}
 
+ #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
 

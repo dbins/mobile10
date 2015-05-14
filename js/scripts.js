@@ -905,4 +905,45 @@
 		});	
 		
 		
+		$(document).on('pageshow', '#banner', function(){ 
+			$.ajax({
+				type: "GET",
+				url: "http://www.misstrendy.com.br/xml/xml_banners.php",
+				dataType: "xml",
+				success: function(data) {
+					
+					var conteudo = "";
+					alert('1');
+					$(data).find('banners').each(function(){
+						alert('2');
+						var link = $(this).find("link").text();
+						var imagem = $(this).find("imagem").text();
+						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						
+						conteudo = conteudo + '<div class="item">';
+                        alert('3');
+                        if (link != "") {
+							conteudo = conteudo + '<a href="' + link + '">';
+                        }
+                       
+                        conteudo = conteudo + '<img src="' + imagem + '">';
+                        alert('4');
+					    if (link != "") {
+						    conteudo = conteudo + '</a>';
+                        }
+					});
+					
+					alert(conteudo);
+					$("#owl-demo").html(conteudo);
+					alert('5');
+
+				},
+				error: function (request,error) {
+					// This callback function will trigger on unsuccessful action                
+					navigator.notification.alert('Houve um erro ao buscar os banners no sistema!', alertDismissed, 'Miss Trendy', 'OK');
+				}
+			});
+		});
+		
+		
 		
