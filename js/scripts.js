@@ -905,13 +905,14 @@
 		});	
 		
 		
-		$(document).on('pageshow', '#banner', function(){ 
+		$(document).on('pageshow', '#banner', function(){
+			alert('teste1');
 			$.ajax({
 				type: "GET",
 				url: "http://www.misstrendy.com.br/xml/xml_banners.php",
 				dataType: "xml",
 				success: function(data) {
-					
+					alert('teste2');
 					var conteudo = "";
 					$(data).find('banners').each(function(){
 						var link = $(this).find("link").text();
@@ -929,9 +930,11 @@
                         }
 					});
 					
-					
+					alert('teste3');
 					$("#owl-demo").html(conteudo);
+					$("#qualquercoisa").html("pageshow OK");
 					$('[data-role="main"]').trigger('create');
+					alert('teste4');
 
 				},
 				error: function (request,error) {
