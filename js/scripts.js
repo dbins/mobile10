@@ -576,7 +576,7 @@
 			});
 		});	
 
-		$(document).on('pageinit', '#tela11', function(){
+		$(document).on('pageinit', '#tela11_B', function(){
         $(document).on('click', '#enviar_busca', function() { 
 			var field_tag_css = {
 				"background-color": "#FFFF99"
@@ -631,7 +631,7 @@
 						conteudo = conteudo + '<p>Não foram localizados produtos.</p>';
 					}
 					conteudo = conteudo + '</div>';
-					$("#main_tela11").html(conteudo);
+					$("#main_tela11_B").html(conteudo);
 
 				}
 			});
@@ -952,5 +952,12 @@
 			});
 		});
 		
-		
+		$(document).on('pageshow', '#tela11', function(){
+			$("#searchField").autocomplete({
+				target: $('#suggestions'),
+				source: 'http://www.misstrendy.com.br/xml/json_produtos_busca.php',
+				link: 'tela10.html?codigo=',
+				minLength: 3
+			});
+		});
 		
