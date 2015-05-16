@@ -34,10 +34,42 @@
 	<script src="owl-carousel/owl.carousel.js"></script>
 </head>
 <body>
+	<div id="slidemenu">
+
+		<div id="profile">
+			<img src="img/miss-trendy.png">
+			<div class="profile_info"></div>
+		</div>
+
+		<h3>MENU</h3>
+
+		<ul>
+			<li><a id="link_home" href="index.html#main"><img src="img/smico3.png">Home</a></li>
+			<li><a id="link_novidades" href="index.html#tela1"><img src="img/smico5.png">Novidades!</a></li>
+			<li><a id="link_vestidos" href="index.html#tela2"><img src="img/smico4.png">Vestidos</a></li>
+			<li><a id="link_saias"  href="index.html#tela3"><img src="img/smico4.png">Saias</a></li>
+			<li><a id="link_blusas"  href="index.html#tela4" rel="external"><img src="img/smico4.png">Blusas</a></li>
+			<li><a id="link_casacos" href="index.html#tela5"><img src="img/smico4.png">Casacos</a></li>
+			<li><a id="link_calcas" href="index.html#tela6"><img src="img/smico4.png">Cal&ccedil;as</a></li>
+			<li><a id="link_shorts" href="index.html#tela7"><img src="img/smico4.png">Shorts</a></li>
+			<li><a id="link_shorts" href="index.html#tela11"><img src="img/smico5.png">Busca</a></li>
+		</ul>
+
+		<h3>MISS TRENDY</h3>
+
+		<ul>
+			<li><a id="link_noticias" href="index.html#noticias"><img src="img/smico3.png">Dicas</a></li>
+			<li><a id="link_faleconosco" href="index.html#faleconosco" rel="external"><img src="img/smico5.png">Enviar Mensagem</a></li>
+			<li><a id="link_carrinho" href="carrinho.html" rel="external"><img src="img/smico5.png">Meu Pedido</a></li>
+			<li><a id="link_banner" href="banner.html" rel="external"><img src="img/smico5.png">Banners</a></li>
+		</ul>
+
+	</div>
 	
 	<div data-role="page" id="banner" data-theme="a">
 		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
-			<h1>Banner</h1>
+			<a href="#" data-slidemenu="#slidemenu" data-slideopen="false" data-icon="smico" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Banners</h1>
 		</div>
 	
 		<div data-role="main" id="main_banner" class="ui-content">
