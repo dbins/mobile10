@@ -929,7 +929,6 @@
 					});
 					
 					$("#owl-demo").html(conteudo);
-					$("#qualquercoisa").html("pageshow OK");
 					$('[data-role="main"]').trigger('create');
 					
 					$("#owl-demo").owlCarousel({
