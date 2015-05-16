@@ -934,6 +934,21 @@
 					$("#owl-demo").html(conteudo);
 					$("#qualquercoisa").html("pageshow OK");
 					$('[data-role="main"]').trigger('create');
+					
+					alert('inicio pagina banner');
+					$("#owl-demo").owlCarousel({
+
+						navigation : true,
+						slideSpeed : 300,
+						paginationSpeed : 600,
+						singleItem : true,
+						autoPlay: true,
+						lazyLoad : true,
+						transitionStyle : "backSlide",
+						itemsMobile : true,
+						itemsDesktopSmall : true,
+					});
+					
 					alert('teste4');
 
 				},
