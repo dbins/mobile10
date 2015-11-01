@@ -33,6 +33,7 @@
 	<preference name="splash-screen-delay" value="10000"/>
 	<preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
+	<preference name='phonegap-version' value='cli-5.1.1' />
     <icon src="icon.png" />
 	<gap:splash src="splash.png" />
 	<icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/icon-36-ldpi.png" />

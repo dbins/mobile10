@@ -558,8 +558,8 @@
 						conteudo = conteudo + '		<p>' + detalhes + '</p>';
 						conteudo = conteudo + '		<p><strong>Tamanho:' + tamanho + '</strong></p>';
 						
-						conteudo = conteudo + '<p></p>';
-						conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '" data-role="button">Fazer Pedido</a></p>';
+						//conteudo = conteudo + '<p></p>';
+						//conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '" data-role="button">Fazer Pedido</a></p>';
 						
 						conteudo = conteudo + '	</div>';
 						conteudo = conteudo + '</div>';
