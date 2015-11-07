@@ -144,9 +144,9 @@
 		
 			var field_tag_css = {
 				"background-color": "#FFFF99"
-			  }
+			  };
 			var continuar = true;
-			var mensagem ="Ocorreram os seguintes erros:\n"
+			var mensagem ="Ocorreram os seguintes erros:\n";
 			
 			if ($('#nome_contato').val() == "") {
 				mensagem = mensagem + 'Prencha o seu nome\n';
@@ -527,7 +527,7 @@
 				url: "http://www.misstrendy.com.br/xml/xml_produtos_detalhe.php?codigo=" + codigo_produto,
 				dataType: "xml",
 				success: function(data) {
-					var conteudo = '<header class="titulos"><span style="color:#333">Informações do </span>produto</header>';
+					var conteudo = '<header class="titulos"><span style="color:#333">Detalhes do </span>produto</header>';
 					$(data).find('produto').each(function(){
 						var codigo = $(this).find("pro_cod").text();
 						var imagem = $(this).find("pro_imagem").text();
@@ -553,7 +553,7 @@
 							conteudo = conteudo + '</div>';
 						}
 						conteudo = conteudo + '<div id="descricao">';
-						conteudo = conteudo + '	<div class="titulos"><span style="color:#333">Descrição </span></div>';
+						conteudo = conteudo + '	<div class="titulos"><span style="color:#333">Detalhes</span></div>';
 						conteudo = conteudo + '	<div class="descprod">';
 						conteudo = conteudo + '		<p>' + detalhes + '</p>';
 						conteudo = conteudo + '		<p><strong>Tamanho:' + tamanho + '</strong></p>';
@@ -580,11 +580,11 @@
         $(document).on('click', '#enviar_busca', function() { 
 			var field_tag_css = {
 				"background-color": "#FFFF99"
-			  }
+			  };
 			
 			var continuar = true;
 			var busca = "";
-			var mensagem ="Ocorreram os seguintes erros:\n"
+			var mensagem ="Ocorreram os seguintes erros:\n";
 			
 			if ($('#nome_produto').val() == "") {
 				mensagem = mensagem + 'Informe os dados que deseja localizar\n';
@@ -941,7 +941,7 @@
 						lazyLoad : true,
 						transitionStyle : "backSlide",
 						itemsMobile : true,
-						itemsDesktopSmall : true,
+						itemsDesktopSmall : true
 					});
 				},
 				error: function (request,error) {
