@@ -516,7 +516,7 @@
 			
 			//if ($(this).data("url") !== undefined){
 				var parameters = $(this).data("url").split("?")[1];
-				parameter = parameters.replace("codigo=","");
+				var parameter = parameters.replace("codigo=","");
 				codigo_produto = parameter;
 			//}
 			
@@ -644,7 +644,7 @@
 		
 		$(document).on('pageshow', '#comprar', function(){ 
 			var parameters = $(this).data("url").split("?")[1];
-			parameter = parameters.replace("produto=","");
+			var parameter = parameters.replace("produto=","");
 			codigo_produto = parameter;
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_comprar.php',
 			data: {id_prod : codigo_produto, CPF: '44444444444'},
@@ -692,7 +692,7 @@
 
 		$(document).on('pageshow', '#remover', function(){ 
 			var parameters = $(this).data("url").split("?")[1];
-			parameter = parameters.replace("id=","");
+			var parameter = parameters.replace("id=","");
 			var codigo_id = parameter;
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_remover.php',
 			data: {id : codigo_id},
@@ -783,7 +783,7 @@
 		$(document).on('pageshow', '#finalizar', function(){ 
 			
 			var parameters = $(this).data("url").split("?")[1];
-			parameter = parameters.replace("CPF=","");
+			var parameter = parameters.replace("CPF=","");
 			var var_CPF = parameter;
 			
 			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_finaliza_pedido.php',
