@@ -4,9 +4,9 @@ font-size:14px; color:#666; text-transform:uppercase; text-align:center;}
 .produtos-images{ float:left; position:relative; text-align:center;}
 .produtos-images:hover{opacity: 0.8; cursor:pointer; border:1px #e86c6e solid; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; -o-border-radius:3px;  }
 .produtos-preco{color:#e86c6e; font-size:22px; font-family: 'bebas_neueregular'; float:left; position:relative; width:100%;}
-#produtos-preco-promo{color:#ad2d36; font-size:22px; font-family: 'bebas_neueregular'; float:left; position:relative; width:100%;}
+#produtos-preco-promo{color:#ad2d36; font-size:12px; font-family: 'bebas_neueregular'; float:left; position:relative; width:100%;}
 .valor{ float:left; width:100%; position:relative; margin:5px 0 0 0; font-size:25px; font-family: 'bebas_neueregular';}
-.preco-promo{ text-decoration: line-through; font-size:19px; opacity:0.8; -webkit-opacity:0.8; -ms-opacity:0.8; -o-opacity:0.8; -moz-opacity:0.8;}
+.preco-promo{ text-decoration: line-through; font-size:12px; opacity:0.8; -webkit-opacity:0.8; -ms-opacity:0.8; -o-opacity:0.8; -moz-opacity:0.8;}
 .produtos-tit{ float:left; position:relative; width:100%;}
 
 .descprod{ float:left; position:relative; width:95%; margin:5px 5px 10px 5px;}
@@ -69,6 +69,3 @@ textarea {
 	border-radius: 4px;
 }
 
-@media (max-width: 480px) {	
-.campos90, .campos80,.campos70,.campos60,.campos50,.campos40,.campos30,.campos20,.campos10{width:95%}
-}

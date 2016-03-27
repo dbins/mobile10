@@ -1,7 +1,25 @@
 		//http://www.javascriptlint.com/online_lint.php
 		var codigo_produto  = 0;
 		var resultados_busca = 0;
-		
+		//Para a carga de arquivos
+		var carregar_imagens = "NAO";
+		var baixar_imagens = "NAO";
+		var arrayImagens = [];
+		var arrayEtapas = ["xml_novidades.xml", "xml_vestidos.xml", "xml_saias.xml", "xml_blusas.xml", "xml_casacos.xml", "xml_calcas.xml", "xml_shorts.xml", "xml_busca.xml"];
+		var carga_status;
+		var carga_porcentagem;
+		//Para apenas um arquivo
+		var arquivo_conteudo = "";
+		var arquivo_nome = "";
+		var nome_arquivo_sistema = "";
+		var carga_offline_titulo = "";
+		var carga_offline_destino = "";
+		var carga_offline_destino_imagem = "";
+		var sistema_online = "SIM";
+		var carga_dados_completa =  0;
+		var carga_imagens_completa =  0;
+		var carga_completa =  0;
+		var tmp_arrayImagens = [];
 		 // alert dialog dismissed
 		function alertDismissed() {
 			// do something
@@ -67,6 +85,13 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 		 
 		function onDeviceReady() {
+			isPhoneGapReady = true;
+			// detect for network access
+			networkDetection();
+			// attach events for online and offline detection
+			document.addEventListener("online", onOnline, false);
+			document.addEventListener("offline", onOffline, false);
+			
 			//screen.unlockOrientation();
 			//navigator.screenOrientation.set('fullSensor');
 			//document.addEventListener("orientationChanged", updateOrientation);
@@ -81,8 +106,51 @@
 			 }
 			});
 			
+			if (sistema_online == "NAO"){
+				$("#titulo_menu").hide();
+				$("#menu_miss").hide();
+			} else {
+				$("#titulo_menu").show();
+				$("#menu_miss").show();
+			}
+			
+			VerificarCargaArquivos();
+			
 		}
 		
+		function networkDetection() {
+			if (isPhoneGapReady) {
+				
+				
+				var states = {};
+				states[navigator.connection.UNKNOWN]  = 'Unknown connection';
+				states[navigator.connection.ETHERNET] = 'Ethernet connection';
+				states[navigator.connection.WIFI]     = 'WiFi connection';
+				states[navigator.connection.CELL_2G]  = 'Cell 2G connection';
+				states[navigator.connection.CELL_3G]  = 'Cell 3G connection';
+				states[navigator.connection.CELL_4G]  = 'Cell 4G connection';
+				states[navigator.connection.NONE]     = 'No network connection';
+				var tipo_conexao = states[navigator.connection.type];
+				
+				if (tipo_conexao != 'No network connection') {
+					isConnected = true;
+				}
+				
+			}	
+		}
+		
+		function onOnline() {
+			isConnected = true;
+			sistema_online = "SIM";
+			$("#titulo_menu").show();
+			$("#menu_miss").show();
+		}
+		function onOffline() {
+			isConnected = false;
+			sistema_online = "NAO";
+			$("#titulo_menu").hide();
+			$("#menu_miss").hide();
+		}
 		//function updateOrientation(e) {
 			
 		//	switch (e.orientation) {
@@ -218,291 +286,109 @@
 		});
 		
 		$(document).on('pageinit', '#tela1', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos_novidades.php",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Novidades!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input1">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela1").html(conteudo);
-
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_novidades.xml", "#main_tela1", "Novidades");
+			} else {
+				LerXML_Online(2, 0, "#main_tela1", "Novidades");
+			}
 		});		
 			
 		$(document).on('pageinit', '#tela2', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=1",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Vestidos!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input2">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela2").html(conteudo);
-
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_vestidos.xml", "#main_tela2", "Vestidos");
+			} else {
+				LerXML_Online(3, 0, "#main_tela2", "Vestidos!");
+			}
+			
 		});	
 		
-		$(document).on('pageinit', '#tela3', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=2",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Saias!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input3">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela3").html(conteudo);
-
+		$(document).on('pageinit', '#tela3', function(){
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_saias.xml", "#main_tela3", "Saias");
+			} else {			
+				LerXML_Online(4, 0, "#main_tela3", "Saias!");
+			}
 		});	
 		
 		$(document).on('pageinit', '#tela4', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=3",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Blusas!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input4">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela4").html(conteudo);
-
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_blusas.xml", "#main_tela4", "Blusas");
+			} else {	
+				LerXML_Online(5, 0, "#main_tela4", "Blusas!");
+			}	
 		});	
 		
-		$(document).on('pageinit', '#tela5', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=4",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Casacos!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input5">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela5").html(conteudo);
-
+		$(document).on('pageinit', '#tela5', function(){ 
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_casacos.xml", "#main_tela5", "Casacos");
+			} else {			
+				LerXML_Online(6, 0, "#main_tela5", "Casacos!");
+			}	
 		});
 		
 		$(document).on('pageinit', '#tela6', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=5",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Calças!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input6">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela6").html(conteudo);
-
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_calcas.xml", "#main_tela6", "Calças");
+			} else {
+				LerXML_Online(7, 0, "#main_tela6", "Calças!");
+			}
 		});
 
 		$(document).on('pageinit', '#tela7', function(){  
-			
-			
-			$.ajax({
-				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=6",
-				dataType: "xml",
-				success: function(data) {
-					var conteudo = "<h2>Shorts!</h2>";
-					conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input7">';
-					$(data).find('produtos').each(function(){
-						var codigo = $(this).find("pro_cod").text();
-						var imagem = $(this).find("pro_imagem").text();
-						var nome = $(this).find("pro_descricao").text();
-						var valor = $(this).find("pro_valor").text();
-						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
-					
-						conteudo = conteudo + '<div class="produtos">';
-						conteudo = conteudo + '<div class="produtos-images">';
-						conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="tela10.html?codigo='+ codigo +'"><img src="' + imagem + '" width="200" height="200" class="img"></a>';		
-						conteudo = conteudo + '</div>';
-						conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
-						if (valor_promo == ""){
-							conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
-						} else {
-							conteudo = conteudo + '<div class="produtos-preco">';
-							conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
-							conteudo = conteudo + '	<br>';
-							conteudo = conteudo + '	Por: R$ ' + valor_promo;   
-							conteudo = conteudo + '</div>';
-						}
-						conteudo = conteudo + '</div>';
-					});
-					conteudo = conteudo + '</div>';
-					$("#main_tela7").html(conteudo);
-					$('[data-role="main"]').trigger('create');
-
+			if (sistema_online == "NAO"){
+				if (carga_dados_completa == 0) {
+					navigator.notification.alert('Nao existe conexao com a Internet. Se deseja acessar o catalogo offline, voce precisa primeiro baixar os arquivos quando a conexao estiver disponivel', alertDismissed, 'Miss Trendy', 'OK');
+					$.mobile.changePage("#index");
 				}
-			});
+			}
+			
+			if (sistema_online == "NAO"){
+				LerArquivo_dados("xml_shorts.xml", "#main_tela7", "Shorts");
+			} else {
+				LerXML_Online(8, 0, "#main_tela7", "Shorts!");
+			}
 		});
 
 		
@@ -960,3 +846,640 @@
 			});
 		});
 		
+		
+		function CargaOffline(){
+			var Folder_Name = "";
+			Folder_Name = "MISSTRENDY_DADOS";
+				
+			//Sempre pegar o primeiro elemento
+			if (arrayEtapas.length > 0) {
+				var link = "";
+				var arquivo = arrayEtapas[0];
+				var index = 0;
+				arrayEtapas.splice(index, 1); //Apagar
+				//Baixando os XMLs de catalogo
+				if (arquivo == "xml_novidades.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos_novidades.php", Folder_Name, "xml_novidades.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_vestidos.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=1", Folder_Name, "xml_vestidos.xml");
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_saias.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=2", Folder_Name, "xml_saias.xml");
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_blusas.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=3", Folder_Name, "xml_blusas.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_casacos.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=4", Folder_Name, "xml_casacos.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_calcas.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=5", Folder_Name, "xml_calcas.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_shorts.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=6", Folder_Name, "xml_shorts.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+				if (arquivo == "xml_busca.xml"){
+					try { 
+						download("http://www.misstrendy.com.br/xml/json_produtos_busca_full.php", Folder_Name, "xml_busca.xml"); 
+					} catch(err) {
+						alert(err.message);
+					}
+				}
+			}
+			
+			//ETAPA 1 - BAIXAR DADOS
+			if (arrayEtapas.length === 0) {
+			  if (baixar_imagens == "NAO"){
+			  //alert('Carga de arquivos concluida com sucesso');
+			  carregar_imagens = "";
+			  $("#resultado_carga").html('Carga de arquivos concluida com sucesso');
+			  //$.mobile.changePage("#lista_carga");
+			  }
+			}
+			
+			//ETAPA 2 - LISTAR IMAGENS
+			if (baixar_imagens == "NAO"){
+				if (carregar_imagens == ""){
+				if (arrayImagens.length == 0) {	
+					//alert('pc1');
+					//Iterando o XML de imagens
+					$.ajax({
+						type: "GET",
+						url: "http://www.misstrendy.com.br/xml/xml_imagens.php",
+						dataType: "xml",
+						success: function(data) {
+							//alert('pc2');
+							var contador = 0;
+							$(data).find('produtos').each(function(){
+								//Apenas para testes
+								var nome_imagem = $(this).find("pro_imagem_nome").text();
+								var imagem = $(this).find("pro_imagem_thumbs").text();
+								imagem = 'http://www.misstrendy.com.br/' + imagem;
+								//download(imagem, Folder_Name, nome_imagem); 
+								arrayImagens.push(nome_imagem);
+								contador++;
+							});
+							
+							if (contador > 0){
+								CargaOffline();
+							}
+							
+
+						},
+						error: function (request,error) {
+							// This callback function will trigger on unsuccessful action                
+							//navigator.notification.alert('Houve um erro ao buscar as informações do seu pedido!', alertDismissed, 'Miss Trendy', 'OK');
+						}
+					});
+				}
+				}
+			}
+			//alert("estou aqui 3"); 
+		
+			//ETAPA 3 - BAIXAR IMAGENS
+			if (arrayImagens.length > 0) {
+			  var total_imagens = arrayImagens.length;	
+			  //alert('Pre-Carga de imagens concluida com sucesso. Total de imagens:' + total_imagens);
+			  $("#resultado_carga").html('Pre-Carga de imagens concluida com sucesso. Total de imagens para baixar:' + total_imagens + ". Aguarde o download...");
+			  baixar_imagens = "";
+			  //arrayImagens = []; //Apagar array
+			  //return;
+			}
+
+			if (baixar_imagens == ""){
+				Folder_Name = "MISSTRENDY_IMAGENS";
+				if (arrayImagens.length > 0) {
+					var link = "http://www.misstrendy.com.br/thumbs/" + arrayImagens[0];
+					var arquivo = arrayImagens[0];
+					var index = 0;
+					arrayImagens.splice(index, 1); //Apagar
+					download(link, Folder_Name, arquivo);
+				}
+			}	
+			
+			//ETAPA 4 - FINALIZAR E CONFERIR
+			if (baixar_imagens == ""){
+				if (arrayImagens.length == 0) {
+					$.mobile.changePage("#main");
+				}
+			}
+			
+		}
+		
+		//Funcoes para baixar arquivos
+		function download(URL, Folder_Name, File_Name) {
+		//step to request a file system 
+		window.RequestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;  
+			window.requestFileSystem(window.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+		function fileSystemSuccess(fileSystem) {
+			var download_link = encodeURI(URL);
+			ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+
+			var directoryEntry = fileSystem.root; // to get root path of directory
+			directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+			var rootdir = fileSystem.root;
+			//var fp = rootdir.fullPath; // Returns Fulpath of local directory
+			//The latest version of Cordova (3.3+), the newer (1.0.0+) version of File uses filesystem URLs instead of the file path.
+			var fp = rootdir.toURL(); 
+
+			//fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+			fp = fp + "/" + Folder_Name + "/" + File_Name; // fullpath and name of the file which we want to give
+			// download function call
+			filetransfer(download_link, fp);
+		}
+
+		function onDirectorySuccess(parent) {
+			// Directory created successfuly
+			//alert("criou diretorio");
+		}
+
+		function onDirectoryFail(error) {
+			//Error while creating directory
+			alert("Unable to create new directory: " + error.code);
+		}
+
+		  function fileSystemFail(evt) {
+			//Unable to access file system
+			alert(evt.target.error.code);
+		 }
+		}
+		
+		
+		function filetransfer(download_link, fp) {
+		var fileTransfer = new FileTransfer();
+		// File download function with URL and local path
+		fileTransfer.onprogress = function(progressEvent) {
+			if (progressEvent.lengthComputable) {
+				var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+				//carga_porcentagem.innerHTML = perc + "% loaded...";
+				$("#resultado_carga2").html(perc + "% loaded...");
+			} else {
+				if($("#resultado_carga2").html() == "") {
+					//carga_porcentagem.innerHTML = "Carregando";
+					$("#resultado_carga2").html(perc + "Carregando");
+				} else {
+					//carga_porcentagem.innerHTML += ".";
+					$("#resultado_carga2").html("....");
+				}
+			}
+		};
+		
+		fileTransfer.download(download_link, fp,
+							function (entry) {
+								//alert("download complete: " + entry.fullPath);
+								$("#resultado_carga").html("download complete: " + entry.fullPath);
+								CargaOffline();
+							},
+						 function (error) {
+							 //Download abort errors or download failed errors
+							//alert("download error source " + error.source);
+							$("#resultado_carga").html("download error source " + error.source);
+							 //alert("download error target " + error.target);
+							 //alert("upload error code" + error.code);
+							 CargaOffline();
+						 }
+					);
+		}
+		
+		//Conferir arquivos baixados
+		$(document).on('pageshow', '#lista_carga', function(){
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+				var resultados = "<p>Arquivos</p>";
+				resultados = resultados + "Root = " + fs.root.fullPath + "<br>";
+				//Listar Tudo
+				var directoryReader = fs.root.createReader();
+				directoryReader.readEntries(function(entries) {
+				var i;
+				for (i=0; i<entries.length; i++) {
+					var objectType = "";
+					if(entries[i].isDirectory == true) {
+                        objectType = 'Diretorio:: ';
+                    } else {
+                        objectType = 'Arquivo::   ';
+                    }
+					resultados = resultados + objectType + entries[i].name + "<br/>";
+				}
+				
+				
+				//Imprimir na tela
+				$("#main_lista_carga").append(resultados);
+				}, function (error) {
+				alert(error.code);
+				})
+				}, function (error) {
+					alert(error.code);
+				});
+			
+			//Lendo somente o diretorio de dados
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+			var localFolder = "MISSTRENDY_DADOS";
+			fs.root.getDirectory(localFolder, {create: false}, 
+				
+				function (dirEntry) {
+					var resultados = "";
+					resultados = resultados + "***** DADOS *****<BR>";
+					var directoryReader2 = dirEntry.createReader();
+					directoryReader2.readEntries(function(entries) {
+					var i;
+					for (i=0; i<entries.length; i++) {
+						var objectType = "";
+						if(entries[i].isDirectory == true) {
+							objectType = 'Diretorio:: ';
+						} else {
+							objectType = 'Arquivo::   ';
+						}
+						resultados = resultados + objectType + entries[i].name + "* " + entries[i].fullPath + "<br/>";
+					}
+					$("#main_lista_carga").append(resultados);
+				}, 
+				
+				function (error) {
+					alert(error.code);
+				}
+				);
+			}, 
+				function (error) {
+					alert(error.code);
+				}
+			
+			);
+			}, function (error) {
+				alert(error.code);
+			});
+			
+			//Lendo somente o diretorio de imagens
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+			var localFolder = "MISSTRENDY_IMAGENS";
+			fs.root.getDirectory(localFolder, {create: false}, 
+				
+				function (dirEntry) {
+					var resultados = "";
+					resultados = resultados + "***** IMAGENS *****<BR>";
+					var directoryReader2 = dirEntry.createReader();
+					directoryReader2.readEntries(function(entries) {
+					var i;
+					for (i=0; i<entries.length; i++) {
+						var objectType = "";
+						if(entries[i].isDirectory == true) {
+							objectType = 'Diretorio:: ';
+						} else {
+							objectType = 'Arquivo::   ';
+						}
+						resultados = resultados + objectType + entries[i].name + " * " + entries[i].toNativeUrl + "<br/>";
+					}
+					$("#main_lista_carga").append(resultados);
+				}, 
+				
+				function (error) {
+					alert(error.code);
+				}
+				);
+			}, 
+				function (error) {
+					alert(error.code);
+				}
+			
+			);
+			}, function (error) {
+				alert(error.code);
+			});
+			
+			alert("listagem concluida");
+			
+			
+		});
+		
+		function LerArquivo_dados(nome_arquivo_dados, destino, titulo){
+			carga_offline_titulo = titulo;
+			carga_offline_destino = destino;
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+				var localFolder = "MISSTRENDY_DADOS";
+				var nome_arquivo = localFolder + "/" + nome_arquivo_dados;
+				fs.root.getFile(nome_arquivo,  {create: false}, gotFileEntry, arquivo_fail);
+
+			}, function (error) {
+				alert(error.code);
+			});
+		}
+		
+		function gotFileEntry(fileEntry) {
+			fileEntry.file(gotFile, arquivo_fail);
+		}
+
+		function gotFile(file){
+			//readDataUrl(file);
+			readAsText(file);
+		}
+
+		//Le o arquivo como base64
+		function readDataUrl(file) {
+			var reader = new FileReader();
+			reader.onloadend = function(evt) {
+				arquivo_nome = evt.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+
+		//Le o arquivo como texto
+		function readAsText(file) {
+			var reader = new FileReader();
+			reader.onloadend = function(evt) {
+				LerXML_local(evt.target.result);
+				arquivo_conteudo = evt.target.result;
+				
+			};
+			reader.readAsText(file);
+		}
+		
+		function arquivo_fail(evt) {
+			alert('fail open image')
+			//alert(evt.target.error.code);
+		}
+		
+		//Teste leitura de XML
+		function LerXML_local(variavel_XML){
+			xmlDoc = $.parseXML(variavel_XML);
+			CarregarConteudoXML(xmlDoc, carga_offline_destino, carga_offline_titulo);
+			//$xml = $(xmlDoc);
+			//$xml.find('produtos').each(function(){
+			//	var nome = $(this).find("pro_descricao").text();
+			//});	
+		}
+		
+		//Apagando arquivos...
+		function ClearDirectory(localFolder) {
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+			function fail(evt) {
+				alert("FILE SYSTEM FAILURE" + evt.target.error.code);
+			}
+			function onFileSystemSuccess(fileSystem) {
+				fileSystem.root.getDirectory(
+					 localFolder,
+					{create : true, exclusive : false},
+					function(entry) {
+					entry.removeRecursively(function() {
+						console.log("Remove Recursively Succeeded");
+					}, fail);
+				}, fail);
+			}
+		}
+		
+		function ApagarCargaArquivos(){
+			alert('iniciando limpeza de arquivos');
+			$("#main_lista_carga").append("");
+			ClearDirectory("MISSTRENDY_DADOS");
+			ClearDirectory("MISSTRENDY_IMAGENS");
+			alert('*** fim ***');
+			$("#main_lista_carga").append("");
+			$.mobile.changePage("#lista_carga");
+		}
+		
+		function AbrirImagem(nome_da_imagem, destino){
+			carga_offline_destino_imagem = destino;
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+				var localFolder = "MISSTRENDY_IMAGENS";
+				var nome_arquivo = localFolder + "/" + nome_da_imagem;
+				fs.root.getFile(nome_arquivo,  {create: false}, gotFileEntry2, arquivo_fail);
+
+			}, function (error) {
+				alert(error.code);
+			});
+			
+		}
+		
+		function gotFileEntry2(fileEntry) {
+			fileEntry.file(gotFile2, arquivo_fail);
+		}
+
+		function gotFile2(file){
+			readDataUrl2(file);
+		}
+
+		//Le o arquivo como base64
+		function readDataUrl2(file) {
+			var reader = new FileReader();
+			reader.onloadend = function(evt) {
+				var dataURL = evt.target.result;
+				//$('#imagem_exemplo').src = dataURL;
+				//$('#imagem_exemplo').attr('src',  dataURL);
+				$(carga_offline_destino_imagem).attr('src',  dataURL);
+				CarregarImagensXML();
+			};
+			reader.readAsDataURL(file);
+		}
+		
+		
+		//Lendo um arquivo XML Online
+		//As duas funcoes abaixo carregam as categorias
+		function LerXML_Online(tipo, variavel, destino, titulo){
+			var link = "";
+			if (tipo== "1"){
+				link = "https://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://feeds.folha.uol.com.br/mercado/rss091.xml&num=20";
+			}
+			if (tipo== "2"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos_novidades.php";
+			}
+			if (tipo== "3"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=1";
+			}
+			if (tipo== "4"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=2";
+			}
+			if (tipo== "5"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=3";
+			}
+			if (tipo== "6"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=4";
+			}
+			if (tipo== "7"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=5";
+			}
+			if (tipo== "8"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=6";
+			}
+			if (tipo== "9"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos_detalhe.php?codigo=" + variavel;
+			}	
+			if (tipo== "10"){
+				link = "http://www.misstrendy.com.br/xml/xml_produtos_busca.php?busca=" + variavel;
+			}
+			
+			$.ajax({
+				type: "GET",
+				url: link,
+				dataType: "xml",
+				success: function(data) {
+					CarregarConteudoXML(data, destino, titulo);
+				},
+				error: function (request,error) {
+					var retorno = "";
+					return retorno;
+				}
+			});
+		}
+		
+		function CarregarConteudoXML(dados, destino, titulo){
+			var conteudo = "<h2>" + titulo + "!</h2>";
+			conteudo = conteudo + '<div class="elements" data-filter="true" data-input="#divOfPs-input1">';
+			$(dados).find('produtos').each(function(){
+				var codigo = $(this).find("pro_cod").text();
+				var imagem = $(this).find("pro_imagem").text();
+				var imagem_nome = $(this).find("pro_imagem_nome").text();
+				var nome_imagem = $(this).find("pro_imagem").text();
+				var nome = $(this).find("pro_descricao").text();
+				var valor = $(this).find("pro_valor").text();
+				var valor_promo = $(this).find("pro_valor_promocao").text();
+				imagem = 'http://www.misstrendy.com.br/' + imagem;
+					
+				conteudo = conteudo + '<div class="produtos">';
+				conteudo = conteudo + '<div class="produtos-images">';
+				
+				//conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="tela10.html?codigo='+ codigo +'"><img id = "#img_' + codigo + '" src="' + imagem + '" width="200" height="200" class="img"></a>';		
+				
+				if (sistema_online == "NAO"){
+					conteudo = conteudo + '	<img id = "img_' + codigo + '" src="img/no-img.jpg" width="200" height="200" class="img">';
+				} else {
+					conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="tela10.html?codigo='+ codigo +'"><img id = "img_' + codigo + '" src="' + imagem + '" width="200" height="200" class="img"></a>';
+				}
+				
+				conteudo = conteudo + '</div>';
+				conteudo = conteudo + '<div class="produtos-tit">' + nome + '</div>';
+				if (valor_promo == ""){
+					conteudo = conteudo + '<div class="valor"> Valor: R$ ' + valor + '</span></div>';
+				} else {
+					conteudo = conteudo + '<div class="produtos-preco">';
+					conteudo = conteudo + '	<span class="preco-promo">De: R$ ' + valor + '</span>';
+					conteudo = conteudo + '	<br>';
+					conteudo = conteudo + '	Por: R$ ' + valor_promo;   
+					conteudo = conteudo + '</div>';
+				}
+				if (sistema_online == "NAO"){
+					var dados_temporarios = [imagem_nome, "#img_" + codigo];
+					tmp_arrayImagens.push(dados_temporarios);
+					//AbrirImagem(imagem_nome, "#img_" + codigo);
+				}
+				conteudo = conteudo + '</div>';
+			});
+			conteudo = conteudo + '</div>';
+			$(destino).html(conteudo);
+			if (sistema_online == "NAO"){
+				CarregarImagensXML();
+			}
+			
+		}
+		
+		function CarregarImagensXML(){
+			if (tmp_arrayImagens.length > 0) {	
+				var dados_imagem = tmp_arrayImagens[0];
+				var index = 0;
+				var imagem_nome = dados_imagem[0];
+				var imagem_div = dados_imagem[1];
+				tmp_arrayImagens.splice(index, 1); //Apagar
+				AbrirImagem(imagem_nome, imagem_div);
+			}
+		}
+		
+		function VerificarCargaArquivos(){
+						//Lendo somente o diretorio de dados
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+			var localFolder = "MISSTRENDY_DADOS";
+			fs.root.getDirectory(localFolder, {create: false}, 
+				
+				function (dirEntry) {
+					var resultados = "";
+					resultados = resultados + "***** DADOS *****<BR>";
+					var directoryReader2 = dirEntry.createReader();
+					directoryReader2.readEntries(function(entries) {
+					var i;
+					for (i=0; i<entries.length; i++) {
+						carga_dados_completa =  1;
+					}
+				}, 
+				
+				function (error) {
+					alert(error.code);
+				}
+				);
+			}, 
+				function (error) {
+					alert(error.code);
+				}
+			
+			);
+			}, function (error) {
+				alert(error.code);
+			});
+			
+			//Lendo somente o diretorio de imagens
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+			var localFolder = "MISSTRENDY_IMAGENS";
+			fs.root.getDirectory(localFolder, {create: false}, 
+				
+				function (dirEntry) {
+					var resultados = "";
+					resultados = resultados + "***** IMAGENS *****<BR>";
+					var directoryReader2 = dirEntry.createReader();
+					directoryReader2.readEntries(function(entries) {
+					var i;
+					for (i=0; i<entries.length; i++) {
+						carga_imagens_completa =  1;
+					}
+					$("#main_lista_carga").append(resultados);
+				}, 
+				
+				function (error) {
+					alert(error.code);
+				}
+				);
+			}, 
+				function (error) {
+					alert(error.code);
+				}
+			
+			);
+			}, function (error) {
+				alert(error.code);
+			});
+			
+			if (carga_dados_completa ==  1) {
+				if (carga_imagens_completa ==  1) {
+					carga_completa =  1;
+				}
+			}
+
+		}
+
+		
+		$(document).on('pageshow', '#ler_arquivo', function(){
+			//AbrirImagem("ves08.jpg");
+		});
