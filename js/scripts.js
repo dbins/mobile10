@@ -37,6 +37,12 @@
 			//$.mobile.pageContainer.pagecontainer("change", "#page", { options });
 		//}
 
+		function TrocarCodigo(codigo_informado){
+			codigo_produto = codigo_informado;
+			$.mobile.changePage("#tela_detalhe", { transition: "slideup"} );
+		}
+
+		
 		function echeck(str) {
 
 			var at="@";
@@ -109,9 +115,17 @@
 			if (sistema_online == "NAO"){
 				$("#titulo_menu").hide();
 				$("#menu_miss").hide();
+				$("#menu_miss1").hide();
+				$("#menu_miss2").hide();
+				$("#menu_miss3").hide();
+				$("#menu_miss4").hide();
 			} else {
 				$("#titulo_menu").show();
 				$("#menu_miss").show();
+				$("#menu_miss1").show();
+				$("#menu_miss2").show();
+				$("#menu_miss3").show();
+				$("#menu_miss4").show();
 			}
 			
 			VerificarCargaArquivos();
@@ -144,12 +158,20 @@
 			sistema_online = "SIM";
 			$("#titulo_menu").show();
 			$("#menu_miss").show();
+			$("#menu_miss1").show();
+			$("#menu_miss2").show();
+			$("#menu_miss3").show();
+			$("#menu_miss4").show();
 		}
 		function onOffline() {
 			isConnected = false;
 			sistema_online = "NAO";
 			$("#titulo_menu").hide();
 			$("#menu_miss").hide();
+			$("#menu_miss1").hide();
+			$("#menu_miss2").hide();
+			$("#menu_miss3").hide();
+			$("#menu_miss4").hide();
 		}
 		//function updateOrientation(e) {
 			
@@ -453,6 +475,63 @@
 					});
 				
 					$("#main_tela10").html(conteudo);
+
+				},
+				error: function (request,error) {
+					// This callback function will trigger on unsuccessful action                
+					navigator.notification.alert('Houve um erro ao buscar as informações deste produto!', alertDismissed, 'Miss Trendy', 'OK');
+				}
+			});
+		});	
+		
+		
+		$(document).on('pageshow', '#tela_detalhe', function(){ 
+			//Produto Selecionado
+			$.ajax({
+				type: "GET",
+				url: "http://www.misstrendy.com.br/xml/xml_produtos_detalhe.php?codigo=" + codigo_produto,
+				dataType: "xml",
+				success: function(data) {
+					var conteudo = '<header class="titulos"><span style="color:#333">Detalhes do </span>produto</header>';
+					$(data).find('produto').each(function(){
+						var codigo = $(this).find("pro_cod").text();
+						var imagem = $(this).find("pro_imagem").text();
+						var nome = $(this).find("pro_descricao").text();
+						var valor = $(this).find("pro_valor").text();
+						var valor_promo = $(this).find("pro_valor_promocao").text();
+						var detalhes = $(this).find("pro_espec").text();
+						var tamanho = $(this).find("pro_tamanho").text();
+						imagem = 'http://www.misstrendy.com.br/' + imagem;
+					
+						
+						conteudo = conteudo + '<section class="prodtotal">';    
+						conteudo = conteudo + '<div id="imgprod"><img src="' + imagem + '" class="img"></a></div>';
+						conteudo = conteudo + '</section>';
+						conteudo = conteudo + '<div class="buyprod">';
+						conteudo = conteudo + '	<header class="titprod">' + nome + '</header>';
+						if (valor_promo == ""){
+							conteudo = conteudo + '	<div class="valor"> Valor: <span style="color:#e86c6e">R$ ' + valor + '</span></div>';
+						} else {
+							conteudo = conteudo + '	<div class="produtos-preco">';
+							conteudo = conteudo + '<span class="preco-promo">De: R$ ' + valor + '</span>';
+							conteudo = conteudo + '<br>Por: R$ ' + valor_promo + '</div>';
+							conteudo = conteudo + '</div>';
+						}
+						conteudo = conteudo + '<div id="descricao">';
+						conteudo = conteudo + '	<div class="titulos"><span style="color:#333">Detalhes</span></div>';
+						conteudo = conteudo + '	<div class="descprod">';
+						conteudo = conteudo + '		<p>' + detalhes + '</p>';
+						conteudo = conteudo + '		<p><strong>Tamanho:' + tamanho + '</strong></p>';
+						
+						//conteudo = conteudo + '<p></p>';
+						//conteudo = conteudo + '<p><a href="comprar.html?produto=' + codigo + '" data-role="button">Fazer Pedido</a></p>';
+						
+						conteudo = conteudo + '	</div>';
+						conteudo = conteudo + '</div>';
+									
+					});
+				
+					$("#main_tela_detalhe").html(conteudo);
 
 				},
 				error: function (request,error) {
@@ -838,12 +917,26 @@
 		});
 		
 		$(document).on('pageshow', '#tela11', function(){
+			//$("#searchField").autocomplete({
+			//	target: $('#suggestions'),
+			//	source: 'http://www.misstrendy.com.br/xml/json_produtos_busca.php',
+			//	link: 'tela10.html?codigo=',
+			//	minLength: 3
+			//});
+			
 			$("#searchField").autocomplete({
+				icon: 'arrow-r',
 				target: $('#suggestions'),
 				source: 'http://www.misstrendy.com.br/xml/json_produtos_busca.php',
-				link: 'tela10.html?codigo=',
-				minLength: 3
+				minLength: 3,
+				loadingHtml : '<li data-icon="none"><a href="#">Pesquisando...</a></li>',
+				callback: function(e){
+                    var $a = $(e.currentTarget); // access the selected item
+					TrocarCodigo($a.attr('href').substr(4));
+				}
 			});
+			
+			
 		});
 		
 		
@@ -1369,7 +1462,9 @@
 				if (sistema_online == "NAO"){
 					conteudo = conteudo + '	<img id = "img_' + codigo + '" src="img/no-img.jpg" width="200" height="200" class="img">';
 				} else {
-					conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="tela10.html?codigo='+ codigo +'"><img id = "img_' + codigo + '" src="' + imagem + '" width="200" height="200" class="img"></a>';
+					//conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '"  href="tela10.html?codigo='+ codigo +'"><img id = "img_' + codigo + '" src="' + imagem + '" width="200" height="200" class="img"></a>';
+					
+					conteudo = conteudo + '	<a id = "' + codigo + '" data-parm="' + codigo + '" href="#" onclick="TrocarCodigo('+ codigo +')"><img id = "img_' + codigo + '" src="' + imagem + '" width="200" height="200" class="img"></a>';
 				}
 				
 				conteudo = conteudo + '</div>';
