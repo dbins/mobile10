@@ -392,9 +392,9 @@
 			}
 			
 			if (sistema_online == "NAO"){
-				LerArquivo_dados("xml_calcas.xml", "#main_tela6", "Calças");
+				LerArquivo_dados("xml_calcas.xml", "#main_tela6", "Calcas");
 			} else {
-				LerXML_Online(7, 0, "#main_tela6", "Calças!");
+				LerXML_Online(7, 0, "#main_tela6", "Calcas!");
 			}
 		});
 
