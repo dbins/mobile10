@@ -1522,17 +1522,17 @@
 				}, 
 				
 				function (error) {
-					alert(error.code);
+					//alert(error.code);
 				}
 				);
 			}, 
 				function (error) {
-					alert(error.code);
+					//alert(error.code);
 				}
 			
 			);
 			}, function (error) {
-				alert(error.code);
+				//alert(error.code);
 			});
 			
 			//Lendo somente o diretorio de imagens
@@ -1553,17 +1553,17 @@
 				}, 
 				
 				function (error) {
-					alert(error.code);
+					//alert(error.code);
 				}
 				);
 			}, 
 				function (error) {
-					alert(error.code);
+					//alert(error.code);
 				}
 			
 			);
 			}, function (error) {
-				alert(error.code);
+				//alert(error.code);
 			});
 			
 			if (carga_dados_completa ==  1) {
