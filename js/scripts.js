@@ -489,7 +489,7 @@
 			//Produto Selecionado
 			$.ajax({
 				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos_detalhe.php?codigo=" + codigo_produto,
+				url: "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_detalhe.php?codigo=" + codigo_produto,
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = '<header class="titulos"><span style="color:#333">Detalhes do </span>produto</header>';
@@ -501,7 +501,7 @@
 						var valor_promo = $(this).find("pro_valor_promocao").text();
 						var detalhes = $(this).find("pro_espec").text();
 						var tamanho = $(this).find("pro_tamanho").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 					
 						
 						conteudo = conteudo + '<section class="prodtotal">';    
@@ -562,7 +562,7 @@
 			if (continuar){
 				$.ajax({
 				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_produtos_busca.php?busca=" + busca,
+				url: "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_busca.php?busca=" + busca,
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "<h2>Resultados da busca!</h2>";
@@ -574,7 +574,7 @@
 						var nome = $(this).find("pro_descricao").text();
 						var valor = $(this).find("pro_valor").text();
 						var valor_promo = $(this).find("pro_valor_promocao").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 					
 						conteudo = conteudo + '<div class="produtos">';
 						conteudo = conteudo + '<div class="produtos-images">';
@@ -611,7 +611,7 @@
 			var parameters = $(this).data("url").split("?")[1];
 			var parameter = parameters.replace("produto=","");
 			codigo_produto = parameter;
-			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_comprar.php',
+			$.ajax({url: 'http://misstrendy.hospedagemdesites.ws/xml/ajax_carrinho_comprar.php',
 			data: {id_prod : codigo_produto, CPF: '44444444444'},
 			type: 'post',                   
 			async: 'true',
@@ -659,7 +659,7 @@
 			var parameters = $(this).data("url").split("?")[1];
 			var parameter = parameters.replace("id=","");
 			var codigo_id = parameter;
-			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_remover.php',
+			$.ajax({url: 'http://misstrendy.hospedagemdesites.ws/xml/ajax_carrinho_remover.php',
 			data: {id : codigo_id},
 			type: 'post',                   
 			async: 'true',
@@ -706,7 +706,7 @@
 			var var_pro_cod = prodPart.split("=")[1];
 			var var_qtde = qtdePart.split("=")[1];
 
-			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_carrinho_alterar.php',
+			$.ajax({url: 'http://misstrendy.hospedagemdesites.ws/xml/ajax_carrinho_alterar.php',
 			data: {id : codigo_id, pro_cod : var_pro_cod, qtde: var_qtde},
 			type: 'post',                   
 			async: 'true',
@@ -751,7 +751,7 @@
 			var parameter = parameters.replace("CPF=","");
 			var var_CPF = parameter;
 			
-			$.ajax({url: 'http://www.misstrendy.com.br/xml/ajax_finaliza_pedido.php',
+			$.ajax({url: 'http://misstrendy.hospedagemdesites.ws/xml/ajax_finaliza_pedido.php',
 			data: {CPF : var_CPF},
 			type: 'post',                   
 			async: 'true',
@@ -796,7 +796,7 @@
 		
 			$.ajax({
 				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_carrinho.php?CPF=44444444444",
+				url: "http://misstrendy.hospedagemdesites.ws/xml/xml_carrinho.php?CPF=44444444444",
 				dataType: "xml",
 				success: function(data) {
 					
@@ -823,7 +823,7 @@
 						var quantidade = $(this).find("quantidade").text();
 						var total = $(this).find("total").text();
 						var id_carrinho = $(this).find("id_carrinho").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 						
 						conteudo = conteudo + '<tr>';
 						conteudo = conteudo + '<td><a href="remover.html?id=' + id_carrinho + '">Excluir</a></td>';
@@ -873,18 +873,18 @@
 		$(document).on('pageshow', '#banner', function(){
 			$.ajax({
 				type: "GET",
-				url: "http://www.misstrendy.com.br/xml/xml_banners.php",
+				url: "http://misstrendy.hospedagemdesites.ws/xml/xml_banners.php",
 				dataType: "xml",
 				success: function(data) {
 					var conteudo = "";
 					$(data).find('banners').each(function(){
 						var link = $(this).find("link").text();
 						var imagem = $(this).find("imagem").text();
-						imagem = 'http://www.misstrendy.com.br/' + imagem;
+						imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 						
 						conteudo = conteudo + '<div class="item">';
                         if (link != "") {
-							conteudo = conteudo + '<a href="http://www.misstrendy.com.br/' + link + '">';
+							conteudo = conteudo + '<a href="http://misstrendy.hospedagemdesites.ws/' + link + '">';
                         }
                        
                         conteudo = conteudo + '<img src="' + imagem + '">';
@@ -919,7 +919,7 @@
 		$(document).on('pageshow', '#tela11', function(){
 			//$("#searchField").autocomplete({
 			//	target: $('#suggestions'),
-			//	source: 'http://www.misstrendy.com.br/xml/json_produtos_busca.php',
+			//	source: 'http://misstrendy.hospedagemdesites.ws/xml/json_produtos_busca.php',
 			//	link: 'tela10.html?codigo=',
 			//	minLength: 3
 			//});
@@ -927,7 +927,7 @@
 			$("#searchField").autocomplete({
 				icon: 'arrow-r',
 				target: $('#suggestions'),
-				source: 'http://www.misstrendy.com.br/xml/json_produtos_busca.php',
+				source: 'http://misstrendy.hospedagemdesites.ws/xml/json_produtos_busca.php',
 				minLength: 3,
 				loadingHtml : '<li data-icon="none"><a href="#">Pesquisando...</a></li>',
 				callback: function(e){
@@ -953,56 +953,56 @@
 				//Baixando os XMLs de catalogo
 				if (arquivo == "xml_novidades.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos_novidades.php", Folder_Name, "xml_novidades.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_novidades.php", Folder_Name, "xml_novidades.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_vestidos.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=1", Folder_Name, "xml_vestidos.xml");
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=1", Folder_Name, "xml_vestidos.xml");
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_saias.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=2", Folder_Name, "xml_saias.xml");
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=2", Folder_Name, "xml_saias.xml");
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_blusas.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=3", Folder_Name, "xml_blusas.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=3", Folder_Name, "xml_blusas.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_casacos.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=4", Folder_Name, "xml_casacos.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=4", Folder_Name, "xml_casacos.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_calcas.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=5", Folder_Name, "xml_calcas.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=5", Folder_Name, "xml_calcas.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_shorts.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=6", Folder_Name, "xml_shorts.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=6", Folder_Name, "xml_shorts.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
 				}
 				if (arquivo == "xml_busca.xml"){
 					try { 
-						download("http://www.misstrendy.com.br/xml/json_produtos_busca_full.php", Folder_Name, "xml_busca.xml"); 
+						download("http://misstrendy.hospedagemdesites.ws/xml/json_produtos_busca_full.php", Folder_Name, "xml_busca.xml"); 
 					} catch(err) {
 						alert(err.message);
 					}
@@ -1027,7 +1027,7 @@
 					//Iterando o XML de imagens
 					$.ajax({
 						type: "GET",
-						url: "http://www.misstrendy.com.br/xml/xml_imagens.php",
+						url: "http://misstrendy.hospedagemdesites.ws/xml/xml_imagens.php",
 						dataType: "xml",
 						success: function(data) {
 							//alert('pc2');
@@ -1036,7 +1036,7 @@
 								//Apenas para testes
 								var nome_imagem = $(this).find("pro_imagem_nome").text();
 								var imagem = $(this).find("pro_imagem_thumbs").text();
-								imagem = 'http://www.misstrendy.com.br/' + imagem;
+								imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 								//download(imagem, Folder_Name, nome_imagem); 
 								arrayImagens.push(nome_imagem);
 								contador++;
@@ -1071,7 +1071,7 @@
 			if (baixar_imagens == ""){
 				Folder_Name = "MISSTRENDY_IMAGENS";
 				if (arrayImagens.length > 0) {
-					var link = "http://www.misstrendy.com.br/thumbs/" + arrayImagens[0];
+					var link = "http://misstrendy.hospedagemdesites.ws/thumbs/" + arrayImagens[0];
 					var arquivo = arrayImagens[0];
 					var index = 0;
 					arrayImagens.splice(index, 1); //Apagar
@@ -1400,31 +1400,31 @@
 				link = "https://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://feeds.folha.uol.com.br/mercado/rss091.xml&num=20";
 			}
 			if (tipo== "2"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos_novidades.php";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_novidades.php";
 			}
 			if (tipo== "3"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=1";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=1";
 			}
 			if (tipo== "4"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=2";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=2";
 			}
 			if (tipo== "5"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=3";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=3";
 			}
 			if (tipo== "6"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=4";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=4";
 			}
 			if (tipo== "7"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=5";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=5";
 			}
 			if (tipo== "8"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos.php?categoria=6";
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos.php?categoria=6";
 			}
 			if (tipo== "9"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos_detalhe.php?codigo=" + variavel;
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_detalhe.php?codigo=" + variavel;
 			}	
 			if (tipo== "10"){
-				link = "http://www.misstrendy.com.br/xml/xml_produtos_busca.php?busca=" + variavel;
+				link = "http://misstrendy.hospedagemdesites.ws/xml/xml_produtos_busca.php?busca=" + variavel;
 			}
 			
 			$.ajax({
@@ -1452,7 +1452,7 @@
 				var nome = $(this).find("pro_descricao").text();
 				var valor = $(this).find("pro_valor").text();
 				var valor_promo = $(this).find("pro_valor_promocao").text();
-				imagem = 'http://www.misstrendy.com.br/' + imagem;
+				imagem = 'http://misstrendy.hospedagemdesites.ws/' + imagem;
 					
 				conteudo = conteudo + '<div class="produtos">';
 				conteudo = conteudo + '<div class="produtos-images">';
